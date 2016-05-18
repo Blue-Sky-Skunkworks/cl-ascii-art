@@ -1,0 +1,57 @@
+(in-package :cl-ascii-art)
+
+(defparameter *font-directory* "/usr/share/figlet/")
+(defvar *fonts* nil)
+
+(defun find-font (name)
+  (if (member name *fonts* :test 'equal)
+      name
+      (error "Unknown font ~S." name)))
+
+(defun load-fonts ()
+  (setf *fonts*
+        (sort
+         (iter (for file in (directory-files *font-directory*))
+           (let ((type (pathname-type file)))
+             (when (member type '("flf" "tlf") :test 'string=)
+               (collect (pathname-name file)))))
+         #'string<)))
+
+(load-fonts)
+
+(defparameter *font* "standard")
+
+(defun fonts ()
+  (let ((index 0))
+    (iter (for row in (group *fonts* 4))
+      (iter (for name in row)
+        (if (string= name *font*)
+            (format t "~2D  ~22A  " (incf index) (cyan name :effect :bright))
+            (format t "~2D  ~11A  " (incf index) name)))
+      (terpri))))
+
+(defun select-font (name-or-index)
+  (setf *font*
+        (typecase name-or-index
+          (string (find-font name-or-index))
+          (integer
+           (if (or (< name-or-index 1) (> name-or-index (length *fonts*)))
+               (error "Ascii font index out of range.")
+               (nth (1- name-or-index) *fonts*))))))
+
+(defun text (text &key (font *font*) (width 80) border crop gay metal left right)
+  (select-font font)
+  (let ((filter (format nil "~{~@[~A~^:~]~}" (list (and border "border")
+                                                   (and crop "crop")
+                                                   (and gay "gay")
+                                                   (and metal "metal")
+                                                   (and left "left")
+                                                   (and right "right")))))
+    (run-program-to-string "toilet" (nconc
+                                     (list "-f" *font* "-w" width)
+                                     (when (plusp (length filter)) (list "-F" filter))
+                                     (list (prin1-to-string text))))))
+
+(defun demo-fonts ()
+  (iter (for font in *fonts* )
+    (format t "~A~%~%~A~%~%" (white font) (ascii-text "Hello!" :font font))))
