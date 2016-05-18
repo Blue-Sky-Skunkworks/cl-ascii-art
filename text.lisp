@@ -55,3 +55,13 @@
 (defun demo-fonts ()
   (iter (for font in *fonts* )
     (format t "~A~%~%~A~%~%" (white font) (ascii-text "Hello!" :font font))))
+
+(defun indent-paragraph (text spaces &optional (char #\space))
+  (let ((lines (split-sequence #\newline text))
+        (indent (make-string spaces :initial-element char)))
+    (with-output-to-string (stream)
+      (iter (for els on lines)
+        (princ indent stream)
+        (princ (car els) stream)
+        (when (cdr els) (terpri stream))))))
+
