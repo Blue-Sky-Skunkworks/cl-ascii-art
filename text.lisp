@@ -56,9 +56,9 @@
   (iter (for font in *fonts* )
     (format t "~A~%~%~A~%~%" (white font) (ascii-text "Hello!" :font font))))
 
-(defun indent-paragraph (text spaces &optional (char #\space))
+(defun indent-text (text count &optional (char #\space))
   (let ((lines (split-sequence #\newline text))
-        (indent (make-string spaces :initial-element char)))
+        (indent (make-string count :initial-element char)))
     (with-output-to-string (stream)
       (iter (for els on lines)
         (princ indent stream)
