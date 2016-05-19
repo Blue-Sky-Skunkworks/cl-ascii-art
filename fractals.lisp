@@ -89,7 +89,7 @@
 ;; ◤
 
 
-;; Vicsec fractal
+;; Vicsek fractal
 ;; (fractal 186 3 4 :char #\black_diamond)
 
 ;;                           ◆
