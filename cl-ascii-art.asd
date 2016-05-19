@@ -8,4 +8,6 @@
   :components ((:static-file "cl-ascii-art.asd")
                (:file "package")
                (:file "utility")
+               (:file "fractals")
+               (:file "hilbert-space-filling-curve")
                (:file "text")))
