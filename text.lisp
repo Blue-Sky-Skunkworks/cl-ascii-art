@@ -87,3 +87,11 @@
   (dotimes (x (length string)) (write-char char stream))
   (format stream "~%~%"))
 
+(defun print-with-ellipses (el &key (stream t) (max 20) (fn #'princ))
+  (let* ((string (princ-to-string el))
+         (len (length string)))
+    (cond
+      ((< len max) (funcall fn string stream))
+      (t (funcall fn (subseq string 0 max) stream)
+         (funcall fn #\horizontal_ellipsis stream))))
+  el)
