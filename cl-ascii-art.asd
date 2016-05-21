@@ -4,10 +4,11 @@
   :author "William Halliburton"
   :license "GPLv3"
   :serial t
-  :depends-on ("cl-ansi-text")
+  :depends-on ("cl-ansi-text" "alexandria" "iterate")
   :components ((:static-file "cl-ascii-art.asd")
                (:file "package")
                (:file "utility")
+               (:file "color")
                (:file "fractals")
                (:file "hilbert-space-filling-curve")
                (:file "text")))
