@@ -78,3 +78,12 @@
       (when (> (- pos-space begin-curr-line) width)
         (format stream "~A~%" (subseq str begin-curr-line prev-space))
         (setq begin-curr-line (1+ prev-space))))))
+
+(defun unfill-paragraph (text)
+  (delete #\newline text))
+
+(defun heading (string &key (char #\=) (stream *standard-output*))
+  (format stream "~%~A~%" string)
+  (dotimes (x (length string)) (write-char char stream))
+  (format stream "~%~%"))
+

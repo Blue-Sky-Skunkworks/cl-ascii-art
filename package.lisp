@@ -5,7 +5,8 @@
   (:import-from uiop directory-files subdirectories)
   (:import-from split-sequence split-sequence)
   (:import-from alexandria ensure-list)
-  (:export text indent-text word-wrap fractal hilbert-space-filling-curve
+  (:export text indent-text word-wrap fractal hilbert-space-filling-curve unfill-paragraph
+           heading
            black red green yellow blue magenta cyan white with-color if-color)
   (:documentation "
     _    ____   ____ ___ ___      _         _      __               ____ _
