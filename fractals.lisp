@@ -3,7 +3,7 @@
 ;;; http://codegolf.stackexchange.com/questions/54453/generate-fractals-from-bit-patterns-in-ascii
 
 
-(defun fractal (n r g &key (char #\#) &aux (s (expt r g)))
+(defun fractal (n r g &key (stream t) (char #\#) &aux (s (expt r g)))
   (labels ((f (g x y s)
              (or (= g 0)
                  (multiple-value-bind (px x) (truncate x s)
@@ -17,8 +17,8 @@
         (princ
          (if (f g x y (/ s r))
              (format nil "~C " char)
-             "  ")))
-      (terpri))))
+             "  ") stream))
+      (terpri stream))))
 
 
 ;; Sierspinski Carpet
@@ -90,7 +90,7 @@
 
 
 ;; Vicsek fractal
-;; (fractal 186 3 4 :char #\black_diamond)
+;; (fractal 186 3 3 :char #\black_diamond)
 
 ;;                           ◆
 ;;                         ◆ ◆ ◆
