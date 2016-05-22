@@ -7,7 +7,8 @@
   (:import-from alexandria ensure-list)
   (:export text indent-text word-wrap fractal hilbert-space-filling-curve unfill-paragraph
            heading print-with-ellipses
-           black red green yellow blue magenta cyan white with-color if-color)
+           black red green yellow blue magenta cyan white with-color if-color
+           fonts select-font demo-fonts)
   (:documentation "
     _    ____   ____ ___ ___      _         _      __               ____ _
    / \  / ___| / ___|_ _|_ _|    / \   _ __| |_   / _| ___  _ __   / ___| |

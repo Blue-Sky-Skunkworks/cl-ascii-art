@@ -54,7 +54,7 @@
 
 (defun demo-fonts ()
   (iter (for font in *fonts* )
-    (format t "~A~%~%~A~%~%" (white font) (ascii-text "Hello!" :font font))))
+    (format t "~A~%~%~A~%~%" (white font) (text "Hello!" :font font))))
 
 (defun indent-text (text count &optional (char #\space))
   (let ((lines (split-sequence #\newline text))
@@ -91,7 +91,7 @@
   (let* ((string (princ-to-string el))
          (len (length string)))
     (cond
-      ((< len max) (funcall fn string stream))
+      ((or (null max) (< len max)) (funcall fn string stream))
       (t (funcall fn (subseq string 0 max) stream)
          (funcall fn #\horizontal_ellipsis stream))))
   el)
