@@ -23,9 +23,6 @@
   (:use common-lisp iterate split-sequence cl-interpol)
   (:export markdown))
 
-(defpackage cl-ascii-art-markdown.testing
-  (:use common-lisp iterate cl-ascii-art-markdown))
-
 (defpackage cl-ascii-art-readme
   (:use common-lisp iterate cl-ascii-art-markdown)
   (:import-from alexandria with-output-to-file)

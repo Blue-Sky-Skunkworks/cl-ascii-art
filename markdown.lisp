@@ -58,9 +58,13 @@
 (defmacro markdown (&body body)
   (with-macrolets '(h1 h2 h3 h4 h5 h6 br text fractal hilbert-space-filling-curve)
     `(with-output-to-string (stream)
-       ,@body)))
+       ,@(iter (for el in body)
+           (collect
+               (typecase el
+                 (string `(princ ,el stream))
+                 (t el)))))))
 
-(defmacro tmarkdown (&body body)
+(defmacro test-markdown (&body body)
   `(with-output-to-string (stream)
      ,@(iter (for el in body)
          (collect
@@ -68,54 +72,4 @@
                (string `(princ ,el stream))
                (t el))))))
 
-;; (princ
-;;  (tmarkdown
-;;    (h1 "CL-ASCII-ART")
-;;    (br 3)
-;;    (h1 "Once apon a time...")
-;;    (h2 "there was a boy.")
-;;    (text "He set out alone," :font "mini")
-;;    (br)
-;;    (text "and would not be boxed in." :font "wideterm" :border t)
-;;    (br 3)
-;;    (h3 "But he had *many* friends...")
-;;    (h4 "He liked fractals!")
-;;    (fractal 186 3 3 :char #\black_diamond)
-;;    (br 2)
-;;    (h4 "and ∞ ∪ ∞")
-;;    (hilbert-space-filling-curve)
-
-
-
-;;    ))
-
-
-(in-package :cl-ascii-art-markdown.testing)
-
-
-;; (princ
-;;  (markdown
-;;    (h1 "CL-ASCII-ART")
-;;    (br 3)
-;;    (h1 "Once apon a time...")
-;;    (h2 "there was a boy.")
-;;    (text "He set out alone," :font "mini")
-;;    (br)
-;;    (text "and would not be boxed in." :font "wideterm" :border t)
-;;    (br 3)
-;;    (h3 "But he had *many* friends...")
-;;    (h4 "He liked fractals!")
-;;    (fractal 186 3 3 :char #\black_diamond)
-;;    (br 2)
-;;    (h4 "and ∞ ∪ ∞")
-;;    (hilbert-space-filling-curve)
-
-
-
-;;    ))
-
-;; (princ
-;;  (markdown
-;;    (h1 "asd")
-;;    ))
 
