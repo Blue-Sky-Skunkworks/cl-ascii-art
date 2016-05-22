@@ -2,8 +2,7 @@
 
 ;;; http://codegolf.stackexchange.com/questions/54453/generate-fractals-from-bit-patterns-in-ascii
 
-
-(defun fractal (n r g &key (stream t) (char #\#) &aux (s (expt r g)))
+(defun fractal (n r g &key (stream *standard-output*) (char #\#) &aux (s (expt r g)))
   (labels ((f (g x y s)
              (or (= g 0)
                  (multiple-value-bind (px x) (truncate x s)
@@ -11,7 +10,7 @@
                      (and
                       (logbitp (+ px (* py r)) n)
                       (f (1- g) x y (/ s r))))))))
-    (fresh-line)
+    (fresh-line stream)
     (dotimes (y s)
       (dotimes (x s)
         (princ
@@ -119,5 +118,4 @@
 ;;                           ◆
 ;;                         ◆ ◆ ◆
 ;;                           ◆
-
 

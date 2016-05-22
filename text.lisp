@@ -41,7 +41,7 @@
 (defun select-font (name-or-index)
   (setf *font* (find-font name-or-index)))
 
-(defun text (text &key (font *font*) (width 80) border crop gay metal left right)
+(defun text (text &key (stream *standard-output*) (font *font*) (width 80) border crop gay metal left right)
   (let ((*font* (find-font font))
         (filter (format nil "~{~@[~A~^:~]~}" (list (and border "border")
                                                    (and crop "crop")
@@ -49,14 +49,15 @@
                                                    (and metal "metal")
                                                    (and left "left")
                                                    (and right "right")))))
-    (run-program-to-string "toilet" (nconc
-                                     (list "-f" *font* "-w" width)
-                                     (when (plusp (length filter)) (list "-F" filter))
-                                     (list (prin1-to-string text))))))
+    (run-program stream "toilet" (nconc
+                                  (list "-f" *font* "-w" width)
+                                  (when (plusp (length filter)) (list "-F" filter))
+                                  (list (prin1-to-string text))))))
 
 (defun demo-fonts ()
   (iter (for font in *fonts* )
-    (format t "~A~%~%~A~%~%" (white font) (text "Hello!" :font font))))
+    (format t "~A~%~%" (white font))
+    (text "Hello!" :font font)))
 
 (defun indent-text (text count &optional (char #\space))
   (let ((lines (split-sequence #\newline text))

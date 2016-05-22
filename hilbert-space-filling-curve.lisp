@@ -47,7 +47,7 @@
                             ((:left  :right) #\BOX_DRAWINGS_LIGHT_HORIZONTAL)
                             ((:up    :down)  #\BOX_DRAWINGS_LIGHT_VERTICAL))))))))
 
-(defun hilbert-space-filling-curve (&key (stream t) (order 6))
+(defun hilbert-space-filling-curve (&key (stream *standard-output*) (order 6))
   "Draw one of Hilbert's continuous fractal space-filling curves."
   (let* ((width (expt 2 order))
          (points (hilbert-points width))

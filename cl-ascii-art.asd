@@ -11,4 +11,6 @@
                (:file "color")
                (:file "fractals")
                (:file "hilbert-space-filling-curve")
-               (:file "text")))
+               (:file "text")
+               (:file "markdown")
+               (:file "readme")))

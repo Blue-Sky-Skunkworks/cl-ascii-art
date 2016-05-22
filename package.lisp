@@ -1,3 +1,4 @@
+
 (defpackage cl-ascii-art
   (:nicknames art)
   (:use common-lisp iterate split-sequence)
@@ -16,3 +17,18 @@
  / ___ \ ___) | |___ | | | |   / ___ \| |  | |_  |  _| (_) | |    | |___| |___
 /_/   \_\____/ \____|___|___| /_/   \_\_|   \__| |_|  \___/|_|     \____|_____|
 "))
+
+(defpackage cl-ascii-art-markdown
+  (:nicknames artmd)
+  (:use common-lisp iterate split-sequence cl-interpol)
+  (:export markdown))
+
+(defpackage cl-ascii-art-markdown.testing
+  (:use common-lisp iterate cl-ascii-art-markdown))
+
+(defpackage cl-ascii-art-readme
+  (:use common-lisp iterate cl-ascii-art-markdown)
+  (:import-from alexandria with-output-to-file)
+  (:export render-readme))
+
+

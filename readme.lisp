@@ -14,3 +14,8 @@
     (br 2)
     (h4 "and ∞ ∪ ∞")
     (hilbert-space-filling-curve)))
+
+(defun save-readme ()
+  (with-output-to-file (stream (art::art-file "README.md") :if-exists :supersede :if-does-not-exist :create)
+    (princ (render-readme) stream))
+  (values))
