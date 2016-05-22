@@ -59,14 +59,13 @@
     (format t "~A~%~%" (white font))
     (text "Hello!" :font font)))
 
-(defun indent-text (text count &optional (char #\space))
+(defun indent-text (text count &key (stream *standard-output*) (char #\space))
   (let ((lines (split-sequence #\newline text))
         (indent (make-string count :initial-element char)))
-    (with-output-to-string (stream)
-      (iter (for els on lines)
-        (princ indent stream)
-        (princ (car els) stream)
-        (when (cdr els) (terpri stream))))))
+    (iter (for els on lines)
+      (princ indent stream)
+      (princ (car els) stream)
+      (when (cdr els) (terpri stream)))))
 
 ;;; from https://www.rosettacode.org/wiki/Word_wrap#Common_Lisp
 

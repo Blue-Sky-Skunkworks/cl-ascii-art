@@ -26,50 +26,51 @@
        ,body)))
 
 (defmacro h1 (string)
-  `(format stream "~A~%~A~%~%" ,string ,(make-string (length string) :initial-element #\=)))
+  `(format t "~A~%~A~%~%" ,string ,(make-string (length string) :initial-element #\=)))
 
 (defmacro h2 (string)
-  `(format stream "~A~%~A~%~%" ,string ,(make-string (length string) :initial-element #\-)))
+  `(format t "~A~%~A~%~%" ,string ,(make-string (length string) :initial-element #\-)))
 
 (defmacro define-headers ()
   `(progn
      ,@(iter (for index from 3 to 6)
          (collect
              `(defmacro ,(symb 'h index) (string)
-                `(format stream ,,(format nil "~A ~~A~~%~~%" (make-string index :initial-element #\#)) ,string))))))
+                `(format t ,,(format nil "~A ~~A~~%~~%" (make-string index :initial-element #\#)) ,string))))))
 
 (define-headers)
 
 (defmacro br (&optional (count 1))
-  `(dotimes (x ,count) (write-char #\newline stream)))
+  `(dotimes (x ,count) (write-char #\newline)))
 
 (defmacro fractal (&rest args)
-  (destructuring-bind (n r g &rest rest) args
-    `(princ (with-output-to-string (str)
-              (art:fractal ,n ,r ,g :stream str ,@rest)) stream)))
+  `(art:fractal ,@args))
 
 (defmacro hilbert-space-filling-curve  (&optional (order 6))
-  `(princ (with-output-to-string (str)
-            (art:hilbert-space-filling-curve :stream str :order ,order)) stream))
+  `(art:hilbert-space-filling-curve :order ,order))
 
 (defmacro text (&rest args)
-  `(let ((*standard-output* stream)) (art:text ,@args))))
+  `(art:text ,@args))
+
+(defmacro pre (&rest args)
+  `(art:indent-text (test-markdown ,@args) 4))
 
 (defmacro markdown (&body body)
-  (with-macrolets '(h1 h2 h3 h4 h5 h6 br text fractal hilbert-space-filling-curve)
-    `(with-output-to-string (stream)
+  (with-macrolets '(h1 h2 h3 h4 h5 h6 br text pre fractal hilbert-space-filling-curve)
+    `(with-output-to-string (*standard-output*)
        ,@(iter (for el in body)
            (collect
                (typecase el
-                 (string `(princ ,el stream))
+                 (string `(princ ,el))
                  (t el)))))))
 
 (defmacro test-markdown (&body body)
-  `(with-output-to-string (stream)
+  `(with-output-to-string (*standard-output*)
      ,@(iter (for el in body)
          (collect
              (typecase el
-               (string `(princ ,el stream))
+               (string `(princ ,el))
                (t el))))))
 
+(test-markdown (pre (text "Hello")))
 
