@@ -3,7 +3,7 @@
 (defparameter *font-directory* "/usr/share/figlet/")
 (defvar *fonts* nil)
 
-(defun find-font (name)
+(defun find-font-from-name (name)
   (if (member name *fonts* :test 'equal)
       name
       (error "Unknown font ~S." name)))
@@ -30,18 +30,20 @@
             (format t "~2D  ~11A  " (incf index) name)))
       (terpri))))
 
+(defun find-font (name-or-index)
+  (typecase name-or-index
+    (string (find-font-from-name name-or-index))
+    (integer
+     (if (or (< name-or-index 1) (> name-or-index (length *fonts*)))
+         (error "Ascii font index out of range.")
+         (nth (1- name-or-index) *fonts*)))))
+
 (defun select-font (name-or-index)
-  (setf *font*
-        (typecase name-or-index
-          (string (find-font name-or-index))
-          (integer
-           (if (or (< name-or-index 1) (> name-or-index (length *fonts*)))
-               (error "Ascii font index out of range.")
-               (nth (1- name-or-index) *fonts*))))))
+  (setf *font* (find-font name-or-index)))
 
 (defun text (text &key (font *font*) (width 80) border crop gay metal left right)
-  (select-font font)
-  (let ((filter (format nil "~{~@[~A~^:~]~}" (list (and border "border")
+  (let ((*font* (find-font font))
+        (filter (format nil "~{~@[~A~^:~]~}" (list (and border "border")
                                                    (and crop "crop")
                                                    (and gay "gay")
                                                    (and metal "metal")
