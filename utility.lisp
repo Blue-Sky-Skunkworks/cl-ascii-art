@@ -27,3 +27,24 @@
 (defun art-file (&optional  base)
   (concatenate 'string (asdf-base-path :cl-ascii-art) base))
 
+(defun mkstr (&rest args)
+  (with-output-to-string (s)
+    (dolist (a args) (when a (princ a s)))))
+
+(defun symb (&rest args)
+  (values (intern (apply #'mkstr args))))
+
+;;; Adapted from cl-dsl. Props out to Alexander Popolitov
+;;; <popolit@gmail.com> for unleasing a wave of easily written DLS's
+;;; onto my world with such a simple set of macros.
+
+(defun with-macrolets (would-be-macrolets body)
+  `(macrolet ,(iter (for el in would-be-macrolets)
+                (collect `(,(symb el) (&rest args) `(,',el ,@args))))
+     ,body))
+
+(defun with-flets (would-be-flets body)
+  `(flet ,(iter (for el in would-be-flets)
+            (collect `(,(symb el) (&rest args) (apply ',el args))))
+     ,body))
+

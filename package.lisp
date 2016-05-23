@@ -6,7 +6,8 @@
   (:import-from uiop directory-files subdirectories)
   (:import-from split-sequence split-sequence)
   (:import-from alexandria ensure-list)
-  (:export text indent-text word-wrap fractal hilbert-space-filling-curve unfill-paragraph
+  (:export with-macrolets with-flets
+           text indent-text word-wrap fractal hilbert-space-filling-curve unfill-paragraph
            heading print-with-ellipses
            black red green yellow blue magenta cyan white with-color if-color
            fonts select-font demo-fonts)
@@ -20,7 +21,7 @@
 
 (defpackage cl-ascii-art-markdown
   (:nicknames artmd)
-  (:use common-lisp iterate split-sequence cl-interpol)
+  (:use common-lisp cl-ascii-art iterate split-sequence cl-interpol)
   (:export markdown))
 
 (defpackage cl-ascii-art-readme
