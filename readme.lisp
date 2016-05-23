@@ -12,7 +12,7 @@
     (h4 "He liked fractals!")
     (pre (fractal 186 3 3 :char #\black_diamond))
     (br 2)
-    (h4 "and ∞ ∪ ∞")
+    (h4 "and ∞ ⊃ ∞")
     (pre (hilbert-space-filling-curve))))
 
 (defun save-readme ()
