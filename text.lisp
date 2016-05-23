@@ -1,6 +1,7 @@
 (in-package :cl-ascii-art)
 
-(defparameter *font-directory* "/usr/share/figlet/")
+(defparameter *font-directory* (art-file "fonts/"))
+
 (defvar *fonts* nil)
 
 (defun find-font-from-name (name)
@@ -50,7 +51,7 @@
                                                    (and left "left")
                                                    (and right "right")))))
     (run-program stream "toilet" (nconc
-                                  (list "-f" *font* "-w" width)
+                                  (list "-f" *font* "-w" width "-d" *font-directory*)
                                   (when (plusp (length filter)) (list "-F" filter))
                                   (list (prin1-to-string text))))))
 
