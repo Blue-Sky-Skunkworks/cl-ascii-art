@@ -14,4 +14,5 @@
                (:file "text")
                (:file "boxed")
                (:file "markdown")
-               (:file "readme")))
+               (:file "readme")
+               (:file "initialize")))

@@ -4,21 +4,13 @@
 
 (defvar *fonts* nil)
 
+(defun load-fonts ()
+  (setf *fonts* (directory-filenames *font-directory* '("flf" "tlf"))))
+
 (defun find-font-from-name (name)
   (if (member name *fonts* :test 'equal)
       name
       (error "Unknown font ~S." name)))
-
-(defun load-fonts ()
-  (setf *fonts*
-        (sort
-         (iter (for file in (directory-files *font-directory*))
-           (let ((type (pathname-type file)))
-             (when (member type '("flf" "tlf") :test 'string=)
-               (collect (pathname-name file)))))
-         #'string<)))
-
-(load-fonts)
 
 (defparameter *font* "standard")
 

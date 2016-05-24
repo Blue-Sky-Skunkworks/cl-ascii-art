@@ -64,3 +64,11 @@
 
 (defmacro as-string (&body body)
   `(with-output-to-string (*standard-output*) ,@body))
+
+(defun directory-filenames (path types)
+  (sort
+   (iter (for file in (directory-files path))
+     (let ((type (pathname-type file)))
+       (when (member type types :test 'string=)
+         (collect (pathname-name file)))))
+   #'string<))
