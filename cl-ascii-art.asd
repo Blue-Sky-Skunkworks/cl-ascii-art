@@ -10,6 +10,7 @@
                (:file "utility")
                (:file "color")
                (:file "tables")
+               (:file "demos")
                (:file "fractals")
                (:file "hilbert-space-filling-curve")
                (:file "text")
