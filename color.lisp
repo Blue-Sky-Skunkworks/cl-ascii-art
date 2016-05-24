@@ -11,3 +11,13 @@
                (princ ,rtn stream)))
            ,rtn))))
 
+(defun length-mono (string)
+  "Returns the length of a string minus the ANSI control sequences."
+  (let ((count 0))
+    (iter (with inside)
+      (for c in-vector string)
+      (cond
+        (inside (when (char= c #\m) (setf inside nil)))
+        ((char= c #\esc) (setf inside t))
+        (t (incf count))))
+    count))

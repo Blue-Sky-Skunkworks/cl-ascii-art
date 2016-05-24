@@ -5,8 +5,8 @@
         while (not (every #'null remaining))
         collect (mapcar #'car remaining)))
 
-(defun maximize-length (list &key (key #'identity))
-  (iter (for element in list) (maximizing (length (funcall key element)))))
+(defun maximize-length (list &key (key #'identity) (length #'length))
+  (iter (for element in list) (maximizing (funcall length (funcall key element)))))
 
 (defun pad-list (list length &optional (pad-element nil))
   (iter
@@ -22,7 +22,7 @@
          (control-string (format nil
                                  (concatenate
                                   'string "~{~~~D" (ecase align (:right "@") (:left "")) "A~^" gap "~}~%")
-                                 (mapcar (lambda (row) (maximize-length row :key #'princ-to-string))
+                                 (mapcar (lambda (row) (maximize-length row :key 'princ-to-string :length 'length-mono))
                                          (rotate-rows-to-columns rows)))))
     (iter
       (for row in (mapcar (lambda (row) (pad-list row max-row-length "")) rows))
