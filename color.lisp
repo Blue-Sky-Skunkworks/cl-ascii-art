@@ -21,3 +21,13 @@
         ((char= c #\esc) (setf inside t))
         (t (incf count))))
     count))
+
+(defun control-length (string)
+  "Returns the length of the ANSI control sequences in STRING."
+  (let ((count 0))
+    (iter (with inside)
+      (for c in-vector string)
+      (cond
+        (inside (when (char= c #\m) (setf inside nil)) (incf count))
+        ((char= c #\esc) (setf inside t) (incf count))))
+    count))
