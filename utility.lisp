@@ -48,3 +48,5 @@
             (collect `(,(symb el) (&rest args) (apply ',el args))))
      ,body))
 
+(defmacro as-string (&body body)
+  `(with-output-to-string (*standard-output*) ,@body))

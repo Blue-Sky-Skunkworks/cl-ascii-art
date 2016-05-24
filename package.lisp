@@ -6,9 +6,9 @@
   (:import-from uiop directory-files subdirectories)
   (:import-from split-sequence split-sequence)
   (:import-from alexandria ensure-list)
-  (:export with-macrolets with-flets
+  (:export with-macrolets with-flets as-string
            text indent-text word-wrap fractal hilbert-space-filling-curve unfill-paragraph
-           heading print-with-ellipses
+           heading print-with-ellipses remove-trailing-newline
            black red green yellow blue magenta cyan white with-color if-color
            fonts select-font demo-fonts)
   (:documentation "
