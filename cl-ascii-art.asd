@@ -12,5 +12,6 @@
                (:file "fractals")
                (:file "hilbert-space-filling-curve")
                (:file "text")
+               (:file "boxed")
                (:file "markdown")
                (:file "readme")))

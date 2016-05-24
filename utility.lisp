@@ -13,21 +13,20 @@
                   (cons list acc))))))
     (when list (rec list nil))))
 
-(defun run-program-on-data (program args data)
-  (with-output-to-string (stream)
-    (let ((proc
-            (let* ((proc (sb-ext:run-program program args
-                                             :input :stream
-                                             :output stream
-                                             :search t
-                                             :wait nil))
-                   (in (sb-ext:process-input proc)))
-              (write-sequence data in)
-              (close in)
-              (sb-ext:process-wait proc))))
-      (unless (and (eq :exited (sb-ext:process-status proc))
-                   (zerop (sb-ext:process-exit-code proc)))
-        (cerror "Return whatever output was gotten." "Running ~A failed." program)))))
+(defun run-program-on-data (program args data stream)
+  (let ((proc
+          (let* ((proc (sb-ext:run-program program args
+                                           :input :stream
+                                           :output stream
+                                           :search t
+                                           :wait nil))
+                 (in (sb-ext:process-input proc)))
+            (write-sequence data in)
+            (close in)
+            (sb-ext:process-wait proc))))
+    (unless (and (eq :exited (sb-ext:process-status proc))
+                 (zerop (sb-ext:process-exit-code proc)))
+      (cerror "Return whatever output was gotten." "Running ~A failed." program))))
 
 (defun run-program-to-string (program args)
   (with-output-to-string (str)
