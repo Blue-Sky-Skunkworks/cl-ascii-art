@@ -10,7 +10,7 @@
            text indent-text word-wrap fractal hilbert-space-filling-curve unfill-paragraph
            heading print-with-ellipses remove-trailing-newline
            black red green yellow blue magenta cyan white with-color if-color
-           fonts select-font demo-fonts boxed)
+           fonts select-font demo-fonts boxed print-table)
   (:documentation "
     _    ____   ____ ___ ___      _         _      __               ____ _
    / \  / ___| / ___|_ _|_ _|    / \   _ __| |_   / _| ___  _ __   / ___| |

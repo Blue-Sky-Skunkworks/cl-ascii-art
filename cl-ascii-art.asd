@@ -9,6 +9,7 @@
                (:file "package")
                (:file "utility")
                (:file "color")
+               (:file "tables")
                (:file "fractals")
                (:file "hilbert-space-filling-curve")
                (:file "text")
