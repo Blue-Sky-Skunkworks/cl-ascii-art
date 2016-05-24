@@ -16,15 +16,37 @@
       (setf (cdr el) (make-list (- length x) :initial-element pad-element))
       (return list))))
 
-(defun print-table (rows &key (gap "  ") (align :left))
+(defun print-table (rows &key (stream *standard-output*) (gap "  ") (align :left))
   (let* ((rows (iter (for row in rows) (collect (ensure-list row))))
          (max-row-length (apply #'max (mapcar #'length rows)))
-         (control-string (format nil
-                                 (concatenate
-                                  'string "~{~~~D" (ecase align (:right "@") (:left "")) "A~^" gap "~}~%")
-                                 (mapcar (lambda (row) (maximize-length row :key 'princ-to-string :length 'length-mono))
-                                         (rotate-rows-to-columns rows)))))
+         (base-widths (mapcar (lambda (row) (maximize-length row :key 'princ-to-string :length 'length-mono))
+                              (rotate-rows-to-columns rows)))
+         (control-string (concatenate 'string "~~~D" (ecase align (:right "@") (:left "")) "A")))
+    (format t ":: ~S~%" control-string)
     (iter
       (for row in (mapcar (lambda (row) (pad-list row max-row-length "")) rows))
-      (apply #'format t control-string row))))
+      (iter (for els on row)
+        (for width in base-widths)
+        (let ((column (car els)))
+          (format stream (format nil (concatenate 'string control-string (when (cdr els) gap))
+                                 (+ width (control-length column))) column)))
+      (terpri stream))))
+
+(defun print-selection-table (listvar selectvar &key (columns 4) (selection-color :cyan))
+  (let* ((list (symbol-value listvar))
+         (numspace (1+ (floor (log (length list) 10))))
+         (numprint (format nil "~~~AD. ~~A" numspace))
+         (current (symbol-value selectvar)))
+    (print-table
+     (group
+      (iter (for el in (symbol-value listvar))
+        (for count from 1)
+        (collect (format nil numprint count
+                         (if (equal current el)
+                             (with-output-to-string (stream)
+                               (with-color (selection-color :stream stream :effect :bright)
+                                 (princ el stream)))
+                             el))))
+      columns))))
+
 
