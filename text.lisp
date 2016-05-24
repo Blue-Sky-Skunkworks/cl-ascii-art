@@ -65,11 +65,11 @@
   (position #\newline string))
 
 (defun demo-fonts (&key count (text "AaBbCc123!@#") (width 120)
-                     max-height min-height max-width min-width)
+                     full-width max-height min-height max-width min-width)
   (iter (for font in *fonts*)
     (for index from 1 to (or count most-positive-fixnum))
     (let* ((demo (with-output-to-string (*standard-output*)
-                   (text text :font font :width width)))
+                   (text text :font font :width width :full-width full-width)))
            (count (line-count demo))
            (line-width (line-width demo)))
       (when (and (or (null max-height) (<= count max-height))
