@@ -42,7 +42,8 @@
 (defun select-font (name-or-index)
   (setf *font* (find-font name-or-index)))
 
-(defun text (text &key (stream *standard-output*) (font *font*) (width 80) border crop gay metal left right)
+(defun text (text &key (stream *standard-output*) (font *font*) (width 80)
+                    border crop gay metal left right full-width)
   (let ((*font* (find-font font))
         (filter (format nil "~{~@[~A~^:~]~}" (list (and border "border")
                                                    (and crop "crop")
@@ -53,6 +54,7 @@
     (run-program stream "toilet" (nconc
                                   (list "-f" *font* "-w" width "-d" *font-directory*)
                                   (when (plusp (length filter)) (list "-F" filter))
+                                  (when full-width (list "-W"))
                                   (list (prin1-to-string text))))
     (values)))
 
