@@ -20,7 +20,10 @@
                                  count max-height min-height max-width min-width)
      (print-demo :stream stream
                  :listvar ',listvar
-                 :render-fn (lambda (el) ,@body)
+                 :render-fn (lambda (el)
+                              (handler-case
+                                  (progn ,@body)
+                                (error (c) (warn "Demo errored ~S ~S ~A." ',name el c))))
                  :count count
                  :max-height max-height
                  :min-height min-height
@@ -30,3 +33,5 @@
 (define-demo fonts ((text "AbBbCc123!@#") (width 120) full-width) *fonts*
   (text text :font el :width width :full-width full-width))
 
+(define-demo cows ((text "AbBbCc123!@#")) *cows* (cowsay text :design el))
+(define-demo boxes ((text "AbBbCc123!@#")) *boxes* (boxed text :design el))

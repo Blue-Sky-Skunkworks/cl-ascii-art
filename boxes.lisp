@@ -1,6 +1,19 @@
 (in-package :cl-ascii-art)
 
-(defun boxed (text &key (design "c") (stream *standard-output*))
+(defparameter *boxes-config* "/etc/boxes/boxes-config")
+
+(defvar *boxes* nil)
+(defvar *current-box* "c")
+
+(define-selection-menu boxes box *boxes* *current-box*)
+
+(defun load-boxes ()
+  (let ((text (slurp-file *boxes-config*)) acc)
+    (do-scans (ms me rs re (create-scanner "BOX .+") text)
+      (push (string-trim '(#\space) (subseq text (+ ms 4) me)) acc))
+    (setf *boxes* (sort acc #'string<))))
+
+(defun boxed (text &key (design *current-box*) (stream *standard-output*))
   (run-program-on-data "boxes" (list "-d" design) text stream)
   (values))
 

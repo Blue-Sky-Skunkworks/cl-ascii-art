@@ -72,3 +72,14 @@
        (when (member type types :test 'string=)
          (collect (pathname-name file)))))
    #'string<))
+
+(defun slurp-file (filename &optional external-format)
+  (with-input-from-file (stream filename :external-format (or external-format :utf-8))
+    (let* ((len (file-length stream))
+           (seq (make-string len))
+           (actual-len (read-sequence seq stream)))
+      (if (< actual-len len)
+        ;; KLUDGE eh, FILE-LENGTH doesn't know about utf8 so we use some duct tape
+        (string-right-trim '(#\nul) seq)
+        seq))))
+
