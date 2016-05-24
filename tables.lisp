@@ -22,7 +22,6 @@
          (base-widths (mapcar (lambda (row) (maximize-length row :key 'princ-to-string :length 'length-mono))
                               (rotate-rows-to-columns rows)))
          (control-string (concatenate 'string "~~~D" (ecase align (:right "@") (:left "")) "A")))
-    (format t ":: ~S~%" control-string)
     (iter
       (for row in (mapcar (lambda (row) (pad-list row max-row-length "")) rows))
       (iter (for els on row)
@@ -49,4 +48,13 @@
                              el))))
       columns))))
 
+(defmacro define-selection-menu (name type list selection)
+  `(defun ,name (&optional select)
+     (cond
+       (select
+        (unless (and (> select 0) (< select (length ,list)))
+          (error ,(format nil "Invalid ~(~A~) index ~~A." type) select))
+        (setf ,selection (nth (1- select) ,list))
+        (format t ,(format nil "Using ~(~A~) ~~S." type) ,selection))
+       (t (print-selection-table ',list ',selection)))))
 
