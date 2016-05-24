@@ -18,8 +18,7 @@
     (asdf/run-program:run-program (format nil "~A ~{~A~^ ~}" program args) :output str)))
 
 (defun run-program (stream program args)
-  (with-output-to-string (str)
-    (asdf/run-program:run-program (format nil "~A ~{~A~^ ~}" program args) :output stream)))
+  (asdf/run-program:run-program (format nil "~A ~{~A~^ ~}" program args) :output stream))
 
 (defun asdf-base-path (name)
   (directory-namestring (asdf:component-pathname (asdf:find-system name))))
