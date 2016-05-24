@@ -15,6 +15,7 @@
                (:file "hilbert-space-filling-curve")
                (:file "text")
                (:file "boxed")
+               (:file "heart")
                (:file "markdown")
                (:file "readme")
                (:file "initialize")))
