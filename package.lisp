@@ -1,7 +1,7 @@
 
 (defpackage cl-ascii-art
   (:nicknames art)
-  (:use common-lisp iterate split-sequence cl-ppcre)
+  (:use common-lisp iterate split-sequence cl-ppcre inferior-shell)
   (:import-from cl-ansi-text with-color black red green yellow blue magenta cyan white)
   (:import-from uiop directory-files subdirectories)
   (:import-from split-sequence split-sequence)

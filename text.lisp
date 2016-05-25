@@ -1,27 +1,13 @@
 (in-package :cl-ascii-art)
 
 (defparameter *font-directory* (art-file "fonts/"))
-
-(defvar *fonts* nil)
-
-(defun load-fonts ()
-  (setf *fonts* (directory-filenames *font-directory* '("flf" "tlf"))))
+(define-selection-menu fonts font *fonts* *font* "standard"
+  (directory-filenames *font-directory* '("flf" "tlf")))
 
 (defun find-font-from-name (name)
   (if (member name *fonts* :test 'equal)
       name
       (error "Unknown font ~S." name)))
-
-(defparameter *font* "standard")
-
-(defun fonts ()
-  (let ((index 0))
-    (iter (for row in (group *fonts* 4))
-      (iter (for name in row)
-        (if (string= name *font*)
-            (format t "~2D  ~22A  " (incf index) (cyan name :effect :bright))
-            (format t "~2D  ~11A  " (incf index) name)))
-      (terpri))))
 
 (defun find-font (name-or-index)
   (typecase name-or-index
@@ -43,11 +29,10 @@
                                                    (and metal "metal")
                                                    (and left "left")
                                                    (and right "right")))))
-    (run-program stream "toilet" (nconc
-                                  (list "-f" *font* "-w" width "-d" *font-directory*)
-                                  (when (plusp (length filter)) (list "-F" filter))
-                                  (when full-width (list "-W"))
-                                  (list (prin1-to-string text))))
+    (run `(toilet "-f" ,*font* "-w" ,width "-d" ,*font-directory*
+                  ,@(when (plusp (length filter)) `("-F" ,filter))
+                  ,@(when full-width (list "-W"))
+                  ,(princ-to-string text)) :output stream)
     (values)))
 
 (defun line-count (string)

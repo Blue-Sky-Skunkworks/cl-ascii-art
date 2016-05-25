@@ -13,28 +13,6 @@
                   (cons list acc))))))
     (when list (rec list nil))))
 
-(defun run-program-on-data (program args data stream)
-  (let ((proc
-          (let* ((proc (sb-ext:run-program program args
-                                           :input :stream
-                                           :output stream
-                                           :search t
-                                           :wait nil))
-                 (in (sb-ext:process-input proc)))
-            (write-sequence data in)
-            (close in)
-            (sb-ext:process-wait proc))))
-    (unless (and (eq :exited (sb-ext:process-status proc))
-                 (zerop (sb-ext:process-exit-code proc)))
-      (cerror "Return whatever output was gotten." "Running ~A failed." program))))
-
-(defun run-program-to-string (program args)
-  (with-output-to-string (str)
-    (asdf/run-program:run-program (format nil "~A ~{~A~^ ~}" program args) :output str)))
-
-(defun run-program (stream program args)
-  (asdf/run-program:run-program (format nil "~A ~{~A~^ ~}" program args) :output stream))
-
 (defun asdf-base-path (name)
   (directory-namestring (asdf:component-pathname (asdf:find-system name))))
 
@@ -83,3 +61,8 @@
         (string-right-trim '(#\nul) seq)
         seq))))
 
+(defun collect-scans (regex string)
+  (let (acc)
+    (do-scans (ms me rs re (create-scanner regex) string)
+      (push (string-trim '(#\space) (subseq string (aref rs 0) (aref re 0))) acc))
+    (nreverse acc)))

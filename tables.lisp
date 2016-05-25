@@ -48,13 +48,19 @@
                              el))))
       columns))))
 
-(defmacro define-selection-menu (name type list selection)
-  `(defun ,name (&optional select)
-     (cond
-       (select
-        (unless (and (> select 0) (< select (length ,list)))
-          (error ,(format nil "Invalid ~(~A~) index ~~A." type) select))
-        (setf ,selection (nth (1- select) ,list))
-        (format t ,(format nil "Using ~(~A~) ~~S." type) ,selection))
-       (t (print-selection-table ',list ',selection)))))
+(defmacro define-selection-menu (name type list selection default &body init)
+  `(progn
+     (defvar ,list nil)
+     (defvar ,selection ,default)
+     (defun ,name (&optional select)
+      (cond
+        (select
+         (unless (and (> select 0) (< select (length ,list)))
+           (error ,(format nil "Invalid ~(~A~) index ~~A." type) select))
+         (setf ,selection (nth (1- select) ,list))
+         (format t ,(format nil "Using ~(~A~) ~~S." type) ,selection))
+        (t (print-selection-table ',list ',selection))))
+     ,@(when init
+         `((defun ,(symb 'load- name) ()
+             (setf ,list ,@init))))))
 

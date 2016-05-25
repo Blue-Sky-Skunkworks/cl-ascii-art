@@ -4,7 +4,7 @@
   :author "William Halliburton"
   :license "GPLv3"
   :serial t
-  :depends-on ("cl-ansi-text" "alexandria" "iterate")
+  :depends-on ("cl-ansi-text" "alexandria" "iterate" "inferior-shell")
   :components ((:static-file "cl-ascii-art.asd")
                (:file "package")
                (:file "utility")
