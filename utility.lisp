@@ -66,3 +66,10 @@
     (do-scans (ms me rs re (create-scanner regex) string)
       (push (string-trim '(#\space) (subseq string (aref rs 0) (aref re 0))) acc))
     (nreverse acc)))
+
+(defun make-list-generator (list)
+  (lambda ()
+    (values (car list)
+            (progn
+              (setf list (cdr list))
+              (not (null list))))))
