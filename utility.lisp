@@ -73,3 +73,10 @@
             (progn
               (setf list (cdr list))
               (not (null list))))))
+
+(defun make-list-fn-generator (list fn)
+  (lambda ()
+    (values (funcall fn (car list))
+            (progn
+              (setf list (cdr list))
+              (not (null list))))))
