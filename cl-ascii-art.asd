@@ -17,6 +17,7 @@
                (:file "boxed")
                (:file "heart")
                (:file "bitmaps")
+               (:file "unicode")
                (:file "markdown")
                (:file "readme")
                (:file "initialize")))
