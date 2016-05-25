@@ -16,29 +16,30 @@
             (format stream "~%~A~%~%~A" (white name) demo))))
       (while remaining))))
 
-(defmacro define-demo (name args listvar &body body)
+(defmacro define-demo (name args (&key generator listvar) &body body)
   `(defun ,(symb 'demo- name) (&key ,@args (stream *standard-output*)
                                  count max-height min-height max-width min-width)
      (print-demo :stream stream
-                 :generator
-                 (make-list-fn-generator
-                  ,listvar
-                  (lambda (el)
-                    (cons
-                     el
-                     (handler-case
-                         (with-output-to-string (*standard-output*)
-                           ,@body)
-                       (error (c) (warn "Demo errored ~S ~S ~A." ',name el c))))))
+                 :generator, (if generator generator
+                                 `(make-list-fn-generator
+                                   ,listvar
+                                   (lambda (el)
+                                     (cons
+                                      el
+                                      (handler-case
+                                          (with-output-to-string (*standard-output*)
+                                            ,@body)
+                                        (error (c) (warn "Demo errored ~S ~S ~A." ',name el c)))))))
                  :count count
                  :max-height max-height
                  :min-height min-height
                  :max-width max-width
                  :min-width min-width)))
 
-(define-demo fonts ((text "AbBbCc123!@#") (width 120) full-width) *fonts*
+(define-demo fonts ((text "AbBbCc123!@#") (width 120) full-width) (:listvar *fonts*)
   (text text :font el :width width :full-width full-width))
 
-(define-demo cows ((text "AbBbCc123!@#")) *cows* (cowsay text :design el))
-(define-demo boxes ((text "AbBbCc123!@#")) *boxes* (boxed text :design el))
+(define-demo cows ((text "AbBbCc123!@#")) (:listvar *cows*) (cowsay text :design el))
+(define-demo boxes ((text "AbBbCc123!@#")) (:listvar *boxes*) (boxed text :design el))
+
 
