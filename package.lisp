@@ -23,7 +23,7 @@
 
 (defpackage cl-ascii-art-markdown
   (:nicknames artmd)
-  (:use common-lisp cl-ascii-art iterate split-sequence cl-interpol)
+  (:use common-lisp cl-ascii-art iterate split-sequence)
   (:export markdown))
 
 (defpackage cl-ascii-art-readme

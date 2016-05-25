@@ -5,3 +5,4 @@
   (load-cows))
 
 (initialize-ascii-art)
+

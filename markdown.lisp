@@ -10,7 +10,7 @@
   `(progn
      ,@(iter (for index from 3 to 6)
          (collect
-             `(defmacro ,(symb 'h index) (string)
+             `(defmacro ,(art::symb 'h index) (string)
                 `(write-string ,(format nil ,(format nil "~A ~~A~~%~~%" (make-string index :initial-element #\#)) string)))))))
 
 (define-headers)
@@ -30,8 +30,8 @@
                (t el))))))
 
 (defmacro markdown (&body body)
-  (with-macrolets '(h1 h2 h3 h4 h5 h6 br pre)
-    (with-flets '(text fractal hilbert-space-filling-curve)
+  (art::with-macrolets '(h1 h2 h3 h4 h5 h6 br pre)
+    (art::with-flets '(text fractal hilbert-space-filling-curve)
       `(with-output-to-string (*standard-output*)
          ,@(iter (for el in body)
              (collect
@@ -39,7 +39,4 @@
                    (string `(princ ,el))
                    (t el))))))))
 
-
-
-(%markdown (pre (text "Hello") (br) (text "yo")))
 

@@ -14,7 +14,7 @@
                (:file "fractals")
                (:file "hilbert-space-filling-curve")
                (:file "text")
-               (:file "boxed")
+               (:file "boxes")
                (:file "heart")
                (:file "bitmaps")
                (:file "unicode")
