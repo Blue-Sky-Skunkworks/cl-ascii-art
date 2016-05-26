@@ -1,0 +1,161 @@
+#+TITLE: The CL-ASCII-ART library.
+
+* AA tasks
+** TODO mandelbrot
+   https://gist.github.com/kosh04/260340
+   https://www.youtube.com/watch?v=P3Kje7GS7As
+   https://groups.google.com/forum/#!msg/comp.lang.lisp/uN312muhoFw/n_Zv8pftpbkJ
+** TODO trees
+   http://www.informatimago.com/develop/lisp/com/informatimago/common-lisp/picture/tree-to-ascii.lisp
+** TODO http://codegolf.stackexchange.com/questions/54453/generate-fractals-from-bit-patterns-in-ascii
+** TODO http://codegolf.stackexchange.com/questions/54008/display-words-using-7-segment-display/54025#54025
+** TODO http://codegolf.stackexchange.com/questions/68621/create-an-ascii-to-hex-table-for-mark-watney/69718#69718
+** TODO http://codegolf.stackexchange.com/questions/56032/argyle-ascii-art/57044#57044
+** TODO http://codegolf.stackexchange.com/questions/77958/convert-to-roman-numeral/78041#78041
+   with overlines in unicode?
+** TODO http://lisp-search.acceleration.net/html/com.informatimago.common-lisp.picture.cons-to-ascii.html
+** TODO research aalib
+** TODO aa3d
+   http://aa-project.sourceforge.net/aa3d/
+
+   JTR`KMJN[LSGJTR`KMJN[LSGJTR`KMJN[LSGJTR`KMJN[LSGJTR`KMJN[LSGJTR`KMJN[LSGJTR`
+   ]KMQ\\SP]UMY]KMQ\\SP]UMY]KMQ\\SP]UMY]KMQ\\SP]UMY]KMQ\\SP]UMY]KMQ\\SP]UMY]KMQ\
+   ER_J]KUMS\QPER_J]KUMS\QPER_]KUMS\QPER_]KUUMS\QPER_]KUMS\QPER_]KUMSS\QPER_]KUM
+   CQE_PSVJ^COJCQE_PSVJ^COJCQ_PSVJ^COJCQ_PSVJJ^COJCQ_PVJJ^COJCQ_PVJJ^CCOJCQ_PVJJ
+   HTXZQDDUTZUXHTXZQDDUTZUXHXZQDDDUTZUXHXQDDDUUTZUXHXDDDUUUTZUXHXDDUUUTTZUXHXDDU
+   EYZIHVFQ[K`CEYZIHVFQ[K`CEZIHVFFQ[K`CEZHVFFQQ[K`CEZVFFQQQ[K`CEZVFQQQ[[K`CEZVFQ
+   EEDHYNWSMFZCEEDHYNWSMFZCEDHYNWWSMFZCEDYNWWSSMFZCEDNWWSSSMFZCEDNWSSSMMFZCEDNWS
+   ZNFDRGB`JKZVZNFDRGB`JKZVZFDRGB`JKZVZFDRGB`JJKZVZFDGB`JJKZVZFDGB`JJKZZVZFDGB`J
+   NQAQLHPZQ\X`NQAQLHPZQ\X`NAQLHPZQ\X`NAQLHPZQQ\X`NAQHPZQQ\X`NAQHPZQQ\XX`NAQHPZQ
+   VRMT^C]XN_TPVRMT^C]XN_TPVMT^C]]XN_TPVM^C]]XXN_TPVMC]]XXXN_TPVMC]XXXNN_TPVMC]X
+   CNH^N\HYWVQMCNH^N\HYWVQMCH^N\HHYWVQMCHN\HHYYWVQMCH\HHYYYWVQMCH\HYYYWWVQMCH\HY
+   KJ\A[RN\]WNKKJ\A[RN\]WNKK\A[RNN\]WNKK\[RNN\\]WNKK\RNN\\\]WNKK\RN\\\]]WNKK\RN\
+   `YCILI^CE[QU`YCILI^CE[QU`YCILI^CE[QU`YCILI^CE[QU`YCILI^CE[QU`YCILI^CE[QU`YCIL
+   UBIKIDP^E[ZMUBIKIDP^E[ZMUBIKIDP^E[ZMUBIKIDP^E[ZMUBIKIDP^E[ZMUBIKIDP^E[ZMUBIKI
+   E^\CLHAQBGEDE^\CLHAQBGEDE^\CHAQBGEDE^\CHHAQBGEDE^\HHAQBGEDE^\HHAQQBGEDE^\HHAQ
+   JYB_V_B`LP_RJYB_V_B`LP_RJYBV_B`LP_RJYBV_BB`LP_RJYB_BB`LP_RJYB_BB`LLP_RJYB_BB`
+   NCLD`^KRCE[]NCLD`^KRCE[]NCLD`^KRCE[]NCD`^KRRCE[]NCD^KRRCCE[]NCDKRRCCCE[]NCDKR
+   ]L[\[Z`EFM[[]L[\[Z`EFM[[]L[\[Z`EFM[[]L\[Z`EEFM[[]L\Z`EEFFM[[]L\ZEEFFFM[[]L\ZE
+   HTHE\JXLNQLGHTHE\JXLNQLGHTHE\XLNQLGHTHE\XLLNQLGHTHEXLLNQQLGHTHEXLNQQQLGHTHEXL
+   IZFRH[M[JHNKIZFRH[M[JHNKIZFRHM[JHNKIZFRHM[[JHNKIZFRM[[JHHNKIZFRM[JHHHNKIZFRM[
+   ]F^MEP][OOMT]F^MEP][OOMT]F^MEP][OOMT]FMEP][[OOMT]FMP][[OOOMT]FMP[[OOOOMT]FMP[
+   NRT[MDN^PW]QNRT[MDN^PW]QNRT[MDN^PW]QNR[MDN^^PW]QNR[DN^^PPW]QNR[N^^PPPW]QNR[N^
+   PB_VZWTFO\WMPB_VZWTFO\WMPB_ZWTFO\WMPB_ZWTTFO\WMPB_WTTFO\WMPB_WTTFOO\WMPB_WTTF
+   BPZRZ[IDK_ZIBPZRZ[IDK_ZIBPZR[IDK_ZIBPZR[[IDK_ZIBPZ[[IDK_ZIBPZ[[IDDK_ZIBPZ[[ID
+   ET_^__[\VEXJET_^__[\VEXJET_^__[\VEXJET_^__[\VEXJET_^__[\VEXJET_^__[\VEXJET_^_
+
+** TODO ascii program
+** TODO asciio drawing program
+** TODO emacs artist mode
+** TODO xaos with libaa
+** TODO hasciicam
+** TODO anti-aliasing images
+ A new anti-aliasing algorithm!
+
+Happily, as I was working on this faq, I ran across Rob Harley
+(robert@vlsi.cs.caltech.edu), who had some handy code for converting
+b&w bitmaps according to a mapping like this:
+
+  ..  ..  ..  ..  ..  ..  ..  ..  ..  ..  ..  ..  ..  ..  ..  ..
+  ..  ..  ..  ..  .@  .@  .@  .@  @.  @.  @.  @.  @@  @@  @@  @@
+  ..  .@  @.  @@  ..  .@  @.  @@  ..  .@  @.  @@  ..  .@  @.  @@
+      ,   .   _   -   i   v   g   -   c   i   s   =   e   z   m
+
+  .@  .@  .@  .@  .@  .@  .@  .@  .@  .@  .@  .@  .@  .@  .@  .@
+  ..  ..  ..  ..  .@  .@  .@  .@  @.  @.  @.  @.  @@  @@  @@  @@
+  ..  .@  @.  @@  ..  .@  @.  @@  ..  .@  @.  @@  ..  .@  @.  @@
+  '   !   /   2   !   ]   /   d   /   (   /   K   Y   4   Z   W
+
+  @.  @.  @.  @.  @.  @.  @.  @.  @.  @.  @.  @.  @.  @.  @.  @.
+  ..  ..  ..  ..  .@  .@  .@  .@  @.  @.  @.  @.  @@  @@  @@  @@
+  ..  .@  @.  @@  ..  .@  @.  @@  ..  .@  @.  @@  ..  .@  @.  @@
+  `   \   |   L   \   \   )   G   !   t   [   b   +   N   D   W
+
+  @@  @@  @@  @@  @@  @@  @@  @@  @@  @@  @@  @@  @@  @@  @@  @@
+  ..  ..  ..  ..  .@  .@  .@  .@  @.  @.  @.  @.  @@  @@  @@  @@
+  ..  .@  @.  @@  ..  .@  @.  @@  ..  .@  @.  @@  ..  .@  @.  @@
+  ~   T   7   X   V   Y   Z   8   f   5   P   K   *   M   A   @
+
+The most important factor in these assignments is not the letter
+shape alone, but the overall pixel density.  On my Mac, these rows
+form an approximate greyscale, from 2 pixels per char, to six:
+
+2 _ivc=!/|\~
+3 gjez2]/(YL\)t[+T7Vf
+4 mdK4ZGbNDXY5P*
+5 W8KMA
+6 @           <-- remember, this choice varies widely: @#%&*
+
+Theoretically, these substitutions could turn 22*80 ascii resolution
+into 66*160.  See rec.misc for the sourcecode and further details.
+Here's the output:
+
+i`it)v|[[[[(//s+)`(-\\/JJgbdd@@@@@@@dmKK(c!(/-[2=/cct/!-v\!_L\)|
+]-!/(!-)\L\)v|c5(!,!Ldd@@@@@@@@@@@@@@@@@@@dK/]!c\\\v|i\/cT\v((c-
+]!`/v\//(-|t\VvcL!m@@@@@M@@@@@@@@@@@@@@@@@@@@bLt\\|)c/2-vv)/it\.
+--/-,\,\v\,|)/v/m@@@@@@K@@@@@@@@@@@@@@@@@@@@@@@bK!v!-( )-!.[/cT
+//.\--'--|-/c(e@@@@@@@DD@@@@@@@@@@@@@@@@@@@@@@@@@@s\\\\-||/v!c\.
+-,-|\`||\-\/id@@@@@@@@N@@@@@@@@@@@@@@@@@@@@@@@@@@@@b.),`-,-/c-`i
+!,\!-!-!'!-!d@@@@@@@P[+~**AAA@@@@@@@@@@@@@@@@@@@@@@@b/./`c-/.\7-
+--'.-- -/,id@@@*P!`          \'Z8@@@@@@@@@@@@@@@@@@@@@i.\\'.\.c
+',`,`\'-,-J@@5`-           -- `-iYA@@@@@@@@@@b@@@@@@@@@_\-|-\c-
+'. -.,`/.G@@K- `               - )7KM@@@@@@@@@@@@@@@@@@@c-----/
+- `-  --i@@Ai                    -!ZZ@@@@@@@@@@@@@@@@@@@b! \`|-`
+ `-,'- G@@@[,                    '.D8K@@@@@@@@@@@@@@@@@@@[/-,-/.
+-` .-/v@@@A)                      -)ZdMd@@@@@@@@@@@@@@@@@@\' _\
+- ` ,iVJ@@@!                     '-!(K5K@@@@@@@@@@@@@@@@@@[(/s[.
+  - i\G@@@Z-                    ' ! -i55ZZ@@@@@@@@@@@@@@@@@)(4)`
+ , -|b@@@@!\                     '  ` |-tYG@@@@@@@@@@@@@@@@XNYZ-
+   tt@@@@A-,                        '  `)(d@@@@@@@@@@@@@@@@D)8A[
+   )8@@@@@\                         ,-'-/Kd@@@@@@@@@@@@@@@@@KD@[
+  ]]Z@@@@d|-              ,ii.c,, -.icLZKK@@@@@@8@K@@@@@@@@@(@8[
+  KN8@@@@@( .i!vGG_      J4Kb8ZKb@bbK@d@88@@@@@@@b@@@@@@@@@@dK@-
+ )/8K@@@K@b@dP~~~T4(    Jd@@7`___s@M@@@@MM8d@@@d@@@@@@@@@@@@LM8[
+\!48@K@@@@8@@d*@@@bVi   bAKLY~~@@@@@@*ff/\NM8@@@@@@@@@@@@@@@db@[
+,\\Kb@@@d@.~t` !*~!`.  -MA)    '~'.).` `,'K@@@@@@@@@@@@@@@@@AKb[
+,`8M@@@@@@ -`,,gvZ``    A//-  ..c\+\`    i]d@@@@@@M@@@@@@@@@@@8[
+i\@8@K@@@D              \!'             !iZ8@@@8A@@@@@8d@b@@@8M[
+e8d5@@@@@@             '!-             '-)8@@@@@@@@@@@@@@@@@@M8i
+8dZ8@M@@@@-             v  ,          ,\tK@@@@@@@@@@@@A@@@@@@Z2|
+@b@AK@@@b@[              //           cctbA@@@AK@@d@@d@@@K@@@bmi
+@@8@M@8@@@P-            -=/.         /iD8d@@@@@@@@@@@@@@A@@@d@@[
+@8@@@MA@@@@\-      .   _)g2i        -((dKK@@@@@d@@@@d@@K@@@@@@K[
+@@@bAK@@K@@)i     'c,,Kb@@bK       )X)Kb@M@@d@@@Mb@@A@d@@@@@@8@[
+@K@b@@@@A@AA/i-     ~M@@@@Mc    .,\c=)D8d@@b@@@d@@@@@@@@@@8d@@A[
+@@@@Mb@@@@@@('c\`     PPK((,i]v|-\-v)8XNAdMK@@@@@@@b@@MK@A@@@@@[
+@@8@@MK@d@A@L!--c)s_, ,(ZsbLb@\`- .-N]/KM@@@@@@@d@@@A@@@@@@@@d@[
+@@Kb@@@K@b@@@/-  !''~~Vff*N5f -` -,\))KK@@@@@@@MK@@d@@@M8d@b@@@[
+@b@@@KAK@@@@@@2--    ,,_JJ/i)/- |/v)NK@8d@@@@@@@@@@8@@@@@@@@M@K[
+@@8d@K@@@b@@@@@d!,   'VV\)\\)\7(-)4Jb@8@A@@@K@d@@@@@@@8@@@@@@@@[
+M@@@@8@@K@Kb@@@d@v.       `-\\/v)88b@M@A@K@@M@@@A@@M@8@@A@d@8@M[
+Zb@d@M@K@@@@@@@@@@m       -)!/stbb@b@@A@b@@@@@Kb@@@@@@@b@@@K@@@[
+K@@d@@@@@d@M@8@@@@@Ks   ,-/vJD@@8d@K@@@@@@8@@@@@@@@@@MK@@@b@@M@[
+tN@b@@d@d@M@@@@@@@@@@LL4JKd@A@@d@@K@@@@MK@@@@8@@@@@@@@@@@b@@@@@[
+)NM@8b@@A@@@A@@@@@@@@@@@@@@A@@A@@8@@K@d@@@@M@@K@@K@A@@@8@@M@@@@[
+(tMM@@@d@@M8@@@@A@@@@A@@@A@@@@@@@@@A@@@@8b@@8d@@@@@@@@@@@@@@@@M[
+tNZ@@K@@@d@@@@A@@@@@8@@@/4N@@8@b@@d@@M@8@MK@M8@K@@@@@@d@@@@@@@@[
+M/KA8@@@MA@@@M@@@@@@@@@@[|t*Z@N@@@@8@@M8ZAZZ@M@@@A@d@@@@@K@@@d@[
+bYJ4M@@@@@@A@@@@@@@@@@@@D.\'(YKKZD@8dK@5A84YZ@dM@@@@@@@@@@@@d@@[
+K5dM8@8d@d@@@@@@@@8@@@@@@..-!/))ZK5AK4)AY(/XY/Z@@@A@@@d@@@M@@@@[
+Y8dNA@@AK@@d@@@b@@@@@@@@@L,-,\!]]\X(5)Z/7c\\t5/K@@@@@@@@b@@@@@@[
+8M8@@@A@@@A@@8@@@@@@@@@KDLt! !,-|t'(-\\!,\/,\!ZJG@@@d@Md@@@G@@@[
+
+
+
+
+
+** 3d steriograms
+          _               _
+       .-~ \           .-~ \
+      /     \  _      /     \ _
+      ~x    .-~_)_    ~x   .-~_)_        This picture has 3 distinct layers:
+        ~>x".-~   ~-.   ~x".-~   ~-.     the hat, head and face. There are
+         ( /         \  ( /         \    many other examples of 3D ascii
+          T  o  o     Y  T o  o      Y   around, plus there are programs
+          l   <       !  l  <        !   available for the easy creation
+           \  .__/   /    \  ._/    /    of SIRDS.
+            "-.___.-'      "-.___.-'
+
+** TODO update emacs to allow 256 ANSI colors
+** research http://nkwiatek.com/experiments/ascii#
+** TODO add TIMEZONE-EARTH-GLOBE
