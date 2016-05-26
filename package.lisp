@@ -11,7 +11,7 @@
            heading print-with-ellipses remove-trailing-newline
            black red green yellow blue magenta cyan white with-color if-color
            fonts select-font boxed print-table
-           clock-face
+           clock-face show-unicode-characters print-in-braille
            demo-fonts demo-boxes demo-cows)
   (:documentation "
     _    ____   ____ ___ ___      _         _      __               ____ _
