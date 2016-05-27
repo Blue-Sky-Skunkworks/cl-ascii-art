@@ -72,7 +72,7 @@
   (dotimes (x (length string)) (write-char char stream))
   (format stream "~%~%"))
 
-(defun print-with-ellipses (el &key (stream t) (max 20) (fn #'princ))
+(defun print-with-ellipses (el &key (stream *standard-output*) (max 20) (fn #'princ))
   (let* ((string (princ-to-string el))
          (len (length string)))
     (cond
