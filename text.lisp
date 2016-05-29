@@ -20,6 +20,24 @@
 (defun select-font (name-or-index)
   (setf *font* (find-font name-or-index)))
 
+(defun find-font-from-name (name)
+  (if (member name *fonts* :test 'equal)
+      name
+      (error "Unknown font ~S." name)))
+
+(defvar *font-case* nil)
+
+(defun font-case (name)
+  (unless *font-case* (setf *font-case* (make-hash-table :test 'equal)))
+  (gethash-set name *font-case*
+    (let* ((font (find-font-from-name name))
+           (upper (as-string (text "A" :font font)))
+           (lower (as-string (text "a" :font font))))
+      (not (string= upper lower)))))
+
+(defun set-font-cases ()
+  (iter (for font in *fonts*) (font-case font)))
+
 (defun text (text &key (stream *standard-output*) (font *font*) (width 80)
                     border crop gay metal left right full-width)
   (let ((*font* (find-font font))
