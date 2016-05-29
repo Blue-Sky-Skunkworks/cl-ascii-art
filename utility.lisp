@@ -80,3 +80,13 @@
             (progn
               (setf list (cdr list))
               (not (null list))))))
+
+(defmacro gethash-set (key hash-table &body body)
+  (let ((%key (gensym))
+        (%hash (gensym)))
+    `(let ((,%key ,key)
+           (,%hash ,hash-table))
+       (multiple-value-bind (val hit) (gethash ,%key ,%hash)
+         (if hit
+             val
+             (setf (gethash ,%key ,%hash) (progn ,@body)))))))
