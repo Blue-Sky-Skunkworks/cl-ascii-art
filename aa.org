@@ -159,3 +159,40 @@ Y8dNA@@AK@@d@@@b@@@@@@@@@L,-,\!]]\X(5)Z/7c\\t5/K@@@@@@@@b@@@@@@[
 ** TODO update emacs to allow 256 ANSI colors
 ** research http://nkwiatek.com/experiments/ascii#
 ** TODO add TIMEZONE-EARTH-GLOBE
+** TODO emacs boxquote
+
+,----
+| adsfasdf kjasdf
+| asfdas
+| dfasdf
+| asdf
+| a
+`----
+
+** TODO emacs thinks
+** TODO research
+   sudo aptitude install dbar ddir detox ditaa docdiff etktab gitk
+   iec16022 jp2a libcaca0 linuxlogo matanza morsegen nfoview
+   pacman4console parsewiki pmw pretzel python-aafigur python-aalib
+   python-prettytable python-pyfilget python-texttable stegsnow
+   supercat textdraw tidy tidy-doc trend
+** TODO ditaa python-aafigure
+** TODO iec16022
+   https://en.wikipedia.org/wiki/Data_Matrix
+** TODO jp2a
+** TODO python-prettytable
+conrad@black python-prettytable/examples  ➜ python prettytable-example.py
++-----------+------+------------+-----------------+
+| City name | Area | Population | Annual Rainfall |
++-----------+------+------------+-----------------+
+| Sydney    | 2058 |  4336374   |      1214.8     |
+| Melbourne | 1566 |  3806092   |       646.9     |
+| Brisbane  | 5905 |  1857594   |      1146.4     |
+| Perth     | 5386 |  1554769   |       869.4     |
+| Adelaide  | 1295 |  1158259   |       600.5     |
+| Hobart    | 1357 |   205556   |       619.5     |
+| Darwin    | 0112 |   120900   |      1714.7     |
++-----------+------+------------+-----------------+
+
+
+
