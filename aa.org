@@ -196,3 +196,4 @@ conrad@black python-prettytable/examples  ➜ python prettytable-example.py
 
 
 
+* AA notes

@@ -13,6 +13,7 @@
                (:file "demos")
                (:file "fractals")
                (:file "hilbert-space-filling-curve")
+               (:file "fonts")
                (:file "text")
                (:file "boxes")
                (:file "heart")

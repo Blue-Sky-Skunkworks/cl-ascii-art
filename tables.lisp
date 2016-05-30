@@ -31,7 +31,7 @@
                                  (+ width (control-length column))) column)))
       (terpri stream))))
 
-(defun print-selection-table (listvar selectvar &key (columns 4) (selection-color :cyan))
+(defun print-selection-table (listvar selectvar &key (reader 'identity) (columns 4) (selection-color :cyan))
   (let* ((list (symbol-value listvar))
          (numspace (1+ (floor (log (length list) 10))))
          (numprint (format nil "~~~AD. ~~A" numspace))
@@ -44,23 +44,23 @@
                          (if (equal current el)
                              (with-output-to-string (stream)
                                (with-color (selection-color :stream stream :effect :bright)
-                                 (princ el stream)))
+                                 (princ (funcall reader el) stream)))
                              el))))
       columns))))
 
-(defmacro define-selection-menu (name type list selection default &body init)
+(defmacro define-selection-menu (name (type list selection &key default reader) &body init)
   `(progn
      (defvar ,list nil)
      (defvar ,selection ,default)
+     (defun ,(symb 'load- name) () (setf ,list ,@init))
+     (defun ,(symb 'ensure- name '-loaded) () (unless ,list (,(symb 'load- name))))
      (defun ,name (&optional select)
-      (cond
-        (select
-         (unless (and (> select 0) (< select (length ,list)))
-           (error ,(format nil "Invalid ~(~A~) index ~~A." type) select))
-         (setf ,selection (nth (1- select) ,list))
-         (format t ,(format nil "Using ~(~A~) ~~S." type) ,selection))
-        (t (print-selection-table ',list ',selection))))
-     ,@(when init
-         `((defun ,(symb 'load- name) ()
-             (setf ,list ,@init))))))
+       (,(symb 'ensure- name '-loaded))
+       (cond
+         (select
+          (unless (and (> select 0) (< select (length ,list)))
+            (error ,(format nil "Invalid ~(~A~) index ~~A." type) select))
+          (setf ,selection (nth (1- select) ,list))
+          (format t ,(format nil "Using ~(~A~) ~~S." type) ,selection))
+         (t (print-selection-table ',list ',selection ,@(when reader `(:reader ,reader))))))))
 
