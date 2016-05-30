@@ -45,7 +45,7 @@
                              (with-output-to-string (stream)
                                (with-color (selection-color :stream stream :effect :bright)
                                  (princ (funcall reader el) stream)))
-                             el))))
+                             (funcall reader el)))))
       columns))))
 
 (defmacro define-selection-menu (name (type list selection &key default reader) &body init)
@@ -61,6 +61,6 @@
           (unless (and (> select 0) (< select (length ,list)))
             (error ,(format nil "Invalid ~(~A~) index ~~A." type) select))
           (setf ,selection (nth (1- select) ,list))
-          (format t ,(format nil "Using ~(~A~) ~~S." type) ,selection))
-         (t (print-selection-table ',list ',selection ,@(when reader `(:reader ,reader))))))))
+          (format t ,(format nil "Using ~(~A~) ~~S." type) ,(if reader `(,reader ,selection) selection)))
+         (t (print-selection-table ',list ',selection ,@(when reader `(:reader ',reader))))))))
 

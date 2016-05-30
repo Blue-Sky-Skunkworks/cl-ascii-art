@@ -197,3 +197,4 @@ conrad@black python-prettytable/examples  ➜ python prettytable-example.py
 
 
 * AA notes
+http://www.kammerl.de/ascii/AsciiStereoMovie.php

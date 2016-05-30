@@ -20,5 +20,4 @@
                (:file "bitmaps")
                (:file "unicode")
                (:file "markdown")
-               (:file "readme")
-               (:file "initialize")))
+               (:file "readme")))

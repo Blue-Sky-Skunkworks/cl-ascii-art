@@ -2,6 +2,7 @@
 
 (defun text (text &key (stream *standard-output*) (font *font*) (width 80)
                     border crop gay metal left right full-width)
+  (ensure-fonts-loaded)
   (let ((*font* (find-font font))
         (filter (format nil "~{~@[~A~^:~]~}" (list (and border "border")
                                                    (and crop "crop")
@@ -9,7 +10,7 @@
                                                    (and metal "metal")
                                                    (and left "left")
                                                    (and right "right")))))
-    (run `(toilet "-f" ,*font* "-w" ,width "-d" ,*font-directory*
+    (run `(toilet "-f" ,(name *font*) "-w" ,width "-d" ,*font-directory*
                   ,@(when (plusp (length filter)) `("-F" ,filter))
                   ,@(when full-width (list "-W"))
                   ,(princ-to-string text)) :output stream)
