@@ -50,11 +50,10 @@
 
 (defparameter *font-directory* (art-file "fonts/"))
 
-(define-selection-menu fonts (font *fonts* *font* :default "standard"
-                                                  :args (&key detail)
+(define-selection-menu fonts (font *fonts* *font* :args (&key detail)
                                                   :reader (lambda (font)
                                                             (nconc
-                                                             (when detail (list (height font)))
+                                                             (when detail (list (height font) (max-length font)))
                                                              (list (name font)))))
   (load-font-directory))
 
@@ -73,9 +72,3 @@
      (if (or (< name-or-index 1) (> name-or-index (length *fonts*)))
          (error "Ascii font index out of range.")
          (nth (1- name-or-index) *fonts*)))))
-
-(defun select-font (name-or-index)
-  (setf *font* (find-font name-or-index)))
-
-
-

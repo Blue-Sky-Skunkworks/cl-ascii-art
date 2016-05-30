@@ -34,7 +34,7 @@
                   column)))
       (terpri stream))))
 
-(defun print-selection-table (listvar selectvar &key (reader 'identity) (columns 4) (selection-color :cyan))
+(defun print-selection-table (listvar selectvar &key (reader 'identity) (columns 5) (selection-color :cyan))
   (let ((current (symbol-value selectvar)) ncols)
     (print-table
      (group
