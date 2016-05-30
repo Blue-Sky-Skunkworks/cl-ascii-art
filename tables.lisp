@@ -28,39 +28,44 @@
         (for width in base-widths)
         (let ((column (car els)))
           (format stream (format nil (concatenate 'string control-string (when (cdr els) gap))
-                                 (+ width (control-length column))) column)))
+                                 (+ width (control-length (etypecase column
+                                                            (string column)
+                                                            (number (princ-to-string column))))))
+                  column)))
       (terpri stream))))
 
 (defun print-selection-table (listvar selectvar &key (reader 'identity) (columns 4) (selection-color :cyan))
-  (let* ((list (symbol-value listvar))
-         (numspace (1+ (floor (log (length list) 10))))
-         (numprint (format nil "~~~AD. ~~A" numspace))
-         (current (symbol-value selectvar)))
+  (let ((current (symbol-value selectvar)) ncols)
     (print-table
      (group
-      (iter (for el in (symbol-value listvar))
+      (iter outer (for el in (symbol-value listvar))
         (for count from 1)
-        (collect (format nil numprint count
-                         (if (equal current el)
-                             (with-output-to-string (stream)
-                               (with-color (selection-color :stream stream :effect :bright)
-                                 (princ (funcall reader el) stream)))
-                             (funcall reader el)))))
-      columns))))
+        (collect count)
+        (let ((els (ensure-list (funcall reader el))))
+          (when (first-iteration-p) (setf ncols (length els)))
+          (iter (with selected = (equal current el))
+            (for col in els)
+            (in outer (collect
+                          (if selected
+                              (with-output-to-string (stream)
+                                (with-color (selection-color :stream stream :effect :bright)
+                                  (princ col stream)))
+                              (princ-to-string col)))))))
+      (* columns (1+ ncols))))))
 
-(defmacro define-selection-menu (name (type list selection &key default reader) &body init)
+(defmacro define-selection-menu (name (type list selection &key default reader args) &body init)
   `(progn
      (defvar ,list nil)
      (defvar ,selection ,default)
      (defun ,(symb 'load- name) () (setf ,list ,@init))
      (defun ,(symb 'ensure- name '-loaded) () (unless ,list (,(symb 'load- name))))
-     (defun ,name (&optional select)
+     (defun ,(symb 'select- type) (index)
        (,(symb 'ensure- name '-loaded))
-       (cond
-         (select
-          (unless (and (> select 0) (< select (length ,list)))
-            (error ,(format nil "Invalid ~(~A~) index ~~A." type) select))
-          (setf ,selection (nth (1- select) ,list))
-          (format t ,(format nil "Using ~(~A~) ~~S." type) ,(if reader `(,reader ,selection) selection)))
-         (t (print-selection-table ',list ',selection ,@(when reader `(:reader ',reader))))))))
+       (unless (and (> index 0) (< index (length ,list)))
+         (error ,(format nil "Invalid ~(~A~) index ~~A." type) index))
+       (setf ,selection (nth (1- index) ,list))
+       (format t ,(format nil "Using ~(~A~) ~~S." type) ,selection))
+     (defun ,name (,@args)
+       (,(symb 'ensure- name '-loaded))
+       (print-selection-table ',list ',selection ,@(when reader `(:reader ,reader))))))
 

@@ -9,11 +9,20 @@
    (common-lines :initarg :common-lines :reader common-lines)
    (print-direction :initarg :print-direction :reader print-direction)
    (full-layout :initarg :full-layout :reader full-layout)
-   (code-count :initarg :code-count :reader code-count)))
+   (code-count :initarg :code-count :reader code-count)
+   lower-case))
 
 (defmethod print-object ((font font) stream)
   (print-unreadable-object (font stream :type t)
     (format stream "~A" (name font))))
+
+(defmethod lower-case ((font font))
+  (if (slot-boundp font 'lower-case)
+      (slot-value font 'lower-case)
+      (setf (slot-value font 'lower-case)
+            (let* ((upper (as-string (text "A" :font font)))
+                   (lower (as-string (text "a" :font font))))
+              (not (string= upper lower))))))
 
 (defun parse-font-file (path)
   (with-input-from-file (stream path)
@@ -41,8 +50,16 @@
 
 (defparameter *font-directory* (art-file "fonts/"))
 
-(define-selection-menu fonts (font *fonts* *font* :default "standard" :reader name)
+(define-selection-menu fonts (font *fonts* *font* :default "standard"
+                                                  :args (&key detail)
+                                                  :reader (lambda (font)
+                                                            (nconc
+                                                             (when detail (list (height font)))
+                                                             (list (name font)))))
   (load-font-directory))
+
+(defun sort-fonts (&optional (key 'height))
+  (setf *fonts* (sort *fonts* (lambda (a b) (< (or a 0) (or b 0))) :key key)))
 
 (defun find-font-from-name (name)
   (or (car (member name *fonts* :test 'equal :key 'name))
@@ -60,16 +77,5 @@
 (defun select-font (name-or-index)
   (setf *font* (find-font name-or-index)))
 
-(defvar *font-case* nil)
 
-(defun font-case (name)
-  (unless *font-case* (setf *font-case* (make-hash-table :test 'equal)))
-  (gethash-set name *font-case*
-    (let* ((font (find-font-from-name name))
-           (upper (as-string (text "A" :font font)))
-           (lower (as-string (text "a" :font font))))
-      (not (string= upper lower)))))
-
-(defun set-font-cases ()
-  (iter (for font in *fonts*) (font-case font)))
 
