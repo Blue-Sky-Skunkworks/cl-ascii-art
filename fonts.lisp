@@ -6,10 +6,11 @@
    (baseline :initarg :baseline :reader baseline)
    (max-length :initarg :max-length :reader max-length)
    (old-layout :initarg :old-layout :reader old-layout)
-   (common-lines :initarg :common-lines :reader common-lines)
+   (comment-lines :initarg :comment-lines :reader comment-lines)
    (print-direction :initarg :print-direction :reader print-direction)
    (full-layout :initarg :full-layout :reader full-layout)
    (code-count :initarg :code-count :reader code-count)
+   (comments :initarg :comments :reader comments)
    lower-case))
 
 (defmethod print-object ((font font) stream)
@@ -29,22 +30,25 @@
     (when-let (line (handler-case
                         (string-trim '(#\return) (read-line stream))
                       (error (c) (warn "Error reading font file ~S ~A." path c)) ))
-      (unless (string-starts-with line "flf2a")
+      (unless (or (string-starts-with line "flf2a")
+                  (string-starts-with line "tlf2a"))
         (error "Invalid font file ~S." path))
       (let ((hardblank (char line 5)))
-        (destructuring-bind (height baseline max-length old-layout common-lines &optional print-direction full-layout code-count)
+        (destructuring-bind (height baseline max-length old-layout comment-lines &optional print-direction full-layout code-count)
             (iter (for el in (split-sequence #\space line :start 6 :remove-empty-subseqs t))
               (for x from 1 to 8)
               (collect (parse-integer el)))
           (make-instance 'font :name (pathname-name path)
                                :height height :baseline baseline :max-length max-length
-                               :old-layout old-layout :common-lines common-lines
+                               :old-layout old-layout :comment-lines comment-lines
                                :print-direction print-direction :full-layout full-layout
-                               :code-count code-count))))))
+                               :code-count code-count
+                               :comments (ignore-errors
+                                          (iter (for x from 1 to comment-lines) (collect (read-line stream))))))))))
 
 (defun load-font-directory (&optional (path *font-directory*))
   (iter (for file in (directory-files path))
-    (when (member (pathname-type file) '("flf") :test 'equal)
+    (when (member (pathname-type file) '("flf" "tlf") :test 'equal)
       (when-let ((font (parse-font-file file)))
         (collect font)))))
 
