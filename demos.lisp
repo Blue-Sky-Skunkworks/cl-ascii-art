@@ -52,12 +52,12 @@
                                `(lambda (name el) (funcall size-filter name (funcall filter name el)))
                                'size-filter)))))
 
-(define-demo fonts ((text "AaBbCc123!@#") (width 120) full-width lower-case comments)
+(define-demo fonts ((text "AaBbCc123!@#") (width 120) full-width lower-case comments as-bitmaps)
   (:listvar *fonts*
    :filter (case-filter lower-case)
    :name-fn name)
   (when comments (format t "~{  ~A~%~}~%" (comments el)))
-  (text text :font el :width width :full-width full-width))
+  (funcall (if as-bitmaps 'text-bitmap 'text) text :font el :width width :full-width full-width)))
 
 (define-demo cows ((text "AaBbCc123!@#")) (:listvar *cows*) (cowsay text :design el))
 (define-demo boxes ((text "AaBbCc123!@#")) (:listvar *boxes*) (boxed text :design el))

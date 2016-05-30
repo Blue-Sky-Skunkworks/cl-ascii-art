@@ -67,3 +67,6 @@
     (if (char= (char string pos) #\newline)
         (subseq string 0 pos)
         string)))
+
+(defun text-bitmap (&rest args)
+  (draw :bitmap (pattern-to-bitmap (split-sequence #\newline (as-string (apply 'text args))))))
