@@ -57,7 +57,7 @@
    :filter (case-filter lower-case)
    :name-fn name)
   (when comments (format t "~{  ~A~%~}~%" (comments el)))
-  (funcall (if as-bitmaps 'text-bitmap 'text) text :font el :width width :full-width full-width)))
+  (funcall (if as-bitmaps 'text-bitmap 'text) text :font el :width width :full-width full-width))
 
 (define-demo cows ((text "AaBbCc123!@#")) (:listvar *cows*) (cowsay text :design el))
 (define-demo boxes ((text "AaBbCc123!@#")) (:listvar *boxes*) (boxed text :design el))
