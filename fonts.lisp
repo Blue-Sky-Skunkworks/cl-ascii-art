@@ -44,7 +44,8 @@
                                :print-direction print-direction :full-layout full-layout
                                :code-count code-count
                                :comments (ignore-errors
-                                          (iter (for x from 1 to comment-lines) (collect (read-line stream))))))))))
+                                          (iter (for x from 1 to comment-lines)
+                                            (collect (string-trim '(#\return) (read-line stream)))))))))))
 
 (defun load-font-directory (&optional (path *font-directory*))
   (iter (for file in (directory-files path))
