@@ -195,6 +195,9 @@ conrad@black python-prettytable/examples  ➜ python prettytable-example.py
 +-----------+------+------------+-----------------+
 
 
-
+** TODO evaluate xterm-color.el for emacs ANSI colors
 * AA notes
 http://www.kammerl.de/ascii/AsciiStereoMovie.php
+http://www.gnuvola.org/software/aa2u/
+orgtbl-ascii-plot
+unidecode
