@@ -61,7 +61,7 @@
      (defun ,(symb 'ensure- name '-loaded) () (unless ,list (,(symb 'load- name))))
      (defun ,(symb 'select- type) (index)
        (,(symb 'ensure- name '-loaded))
-       (unless (and (> index 0) (< index (length ,list)))
+       (unless (and (> index 0) (<= index (length ,list)))
          (error ,(format nil "Invalid ~(~A~) index ~~A." type) index))
        (setf ,selection (nth (1- index) ,list))
        (format t ,(format nil "Using ~(~A~) ~~S." type) ,selection))
