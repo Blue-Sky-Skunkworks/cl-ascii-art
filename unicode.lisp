@@ -38,6 +38,14 @@
       (loop for (name) in *sample-unicode-sets*
             do (format t "  ~(~S~)~%" name)))))
 
+(defun unicode-apropos (search)
+  (let* ((regex (create-scanner search))
+         (list (iter (for index from 1 to #x1F5FF)
+                 (let ((name (format nil "~S" (code-char index))))
+                   (when (scan regex name)
+                     (collect (code-char index)))))))
+    (values list (coerce list 'string))))
+
 (defparameter *ascii-to-braille-map*
   " A1B'K2L@CIF/MSP\"E3H9O6R^DJG>NTQ,*5<-U8V.%[$+X!&;:4\\0Z7(_?W]#Y)=")
 
