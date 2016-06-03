@@ -40,7 +40,7 @@
 
 (defun unicode-apropos (search)
   (let* ((regex (create-scanner search))
-         (list (iter (for index from 1 to #x1F5FF)
+         (list (iter (for index from 1 to #x1F6F3)
                  (let ((name (format nil "~S" (code-char index))))
                    (when (scan regex name)
                      (collect (code-char index)))))))
