@@ -56,6 +56,7 @@
 (defun print-with-ellipses (el &key (stream *standard-output*) (max 20) (fn #'princ))
   (let* ((string (princ-to-string el))
          (len (length string)))
+    (when (functionp max) (setf max (funcall max string)))
     (cond
       ((or (null max) (< len max)) (funcall fn string stream))
       (t (funcall fn (subseq string 0 max) stream)
