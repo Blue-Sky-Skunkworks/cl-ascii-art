@@ -38,12 +38,13 @@
       (loop for (name) in *sample-unicode-sets*
             do (format t "  ~(~S~)~%" name)))))
 
-(defun unicode-apropos (search)
+(defun unicode-apropos (search &key shuffle)
   (let* ((regex (create-scanner search))
          (list (iter (for index from 1 to #x1F6F3)
                  (let ((name (format nil "~S" (code-char index))))
                    (when (scan regex name)
                      (collect (code-char index)))))))
+    (when shuffle (setf list (shuffle list)))
     (values list (coerce list 'string))))
 
 (defparameter *ascii-to-braille-map*
