@@ -12,6 +12,7 @@
            black red green yellow blue magenta cyan white with-color if-color
            fonts select-font boxed print-table
            clock-face show-unicode-characters unicode-apropos print-in-braille
+           text-with-unicode-boxes
            demo-fonts demo-boxes demo-cows)
   (:documentation "
     _    ____   ____ ___ ___      _         _      __               ____ _

@@ -67,3 +67,18 @@
   (multiple-value-bind (s m h) (decode-universal-time time )
     (declare (ignore s))
     (aref *clock-faces* (1- (+ (if (< m 30) 0 12) (if (> h 12) (- h 12) h))))))
+
+(defun text-with-unicode-boxes (ascii-string &key negative space)
+  (with-output-to-string (stream)
+    (iter (for char in-string ascii-string)
+      (princ
+       (if (alpha-char-p char)
+           (code-char
+            (+ (char-code
+                (if negative
+                    #\NEGATIVE_SQUARED_LATIN_CAPITAL_LETTER_A
+                    #\SQUARED_LATIN_CAPITAL_LETTER_A))
+               (- (char-code char) (char-code #\A))))
+           char)
+       stream)
+      (when space (princ #\no-break_space stream)))))
