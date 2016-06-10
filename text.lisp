@@ -58,7 +58,7 @@
          (len (length string)))
     (when (functionp max) (setf max (funcall max string)))
     (cond
-      ((or (null max) (< len max)) (funcall fn string stream))
+      ((or (null max) (<= len max)) (funcall fn string stream))
       (t (funcall fn (subseq string 0 max) stream)
          (funcall fn #\horizontal_ellipsis stream))))
   el)
@@ -71,3 +71,4 @@
 
 (defun text-bitmap (&rest args)
   (draw :bitmap (pattern-to-bitmap (split-sequence #\newline (as-string (apply 'text args))))))
+
