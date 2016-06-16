@@ -12,8 +12,8 @@
 (define-selection-menu cows (cow *cows* *current-cow* :default "default")
   (directory-filenames *cow-directory* '("cow")))
 
-(defun cowsay (text &key (design *current-cow*) (stream *standard-output*))
+(defun cowsay (text &key (word-wrap t) (design *current-cow*) (stream *standard-output*))
   (ensure-cows-loaded)
   (unless (member design *cows* :test 'equalp)
     (error "Unknow cow design ~S." design))
-  (run `(pipe (echo ,text) (cowsay -f ,design)) :output stream))
+  (run `(pipe (echo ,text) (cowsay ,@(unless word-wrap '(-n)) -f ,design)) :output stream))
