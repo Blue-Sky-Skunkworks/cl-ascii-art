@@ -72,3 +72,10 @@
 (defun text-bitmap (&rest args)
   (draw :bitmap (pattern-to-bitmap (split-sequence #\newline (as-string (apply 'text args))))))
 
+(defun text-3d (text &key (font "rebel") (translation '((#\FULL_BLOCK . 3)
+                                                        (#\MEDIUM_SHADE . 2)
+                                                        (#\SPACE . 1))))
+  (let ((str (as-string (text text :font font))))
+    (with-output-to-string (stream)
+      (iter (for c in-string str)
+        (princ (or (assoc-value translation c) c) stream)))))
