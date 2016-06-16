@@ -20,4 +20,5 @@
                (:file "bitmaps")
                (:file "unicode")
                (:file "markdown")
+               (:file "border")
                (:file "readme")))
