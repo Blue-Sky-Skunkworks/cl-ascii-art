@@ -42,6 +42,16 @@
            (setf (aref bitmap y x) t))))
     bitmap))
 
+(defun copy-bitmap-onto-bitmap (from-bitmap to-bitmap x y &key (fn (lambda (a b) (or a b))))
+  (destructuring-bind (height width) (array-dimensions from-bitmap)
+    (iter (for yi from 0 to (1- height))
+      (iter (for xi from 0 to (1- width))
+        (let ((from (aref from-bitmap yi xi))
+              (to (aref to-bitmap (+ y yi) (+ x xi))))
+          (set-pixel (+ x xi) (+ y yi)
+                     to-bitmap
+                     (funcall fn from to)))))))
+
 ;;; Described in
 ;;; Computer Graphics - Principles and Practice by Donald Hearn and M. Pauline Baker
 
