@@ -13,7 +13,8 @@
            fonts select-font boxed cowsay print-table
            clock-face show-unicode-characters unicode-apropos print-in-braille
            text-with-unicode-boxes
-           demo-fonts demo-boxes demo-cows)
+           demo-fonts demo-boxes demo-cows
+           *inhibit-note* *show-note-clock* note bugout)
   (:documentation "
     _    ____   ____ ___ ___      _         _      __               ____ _
    / \  / ___| / ___|_ _|_ _|    / \   _ __| |_   / _| ___  _ __   / ___| |

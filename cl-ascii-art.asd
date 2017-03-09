@@ -9,6 +9,7 @@
   :components ((:static-file "cl-ascii-art.asd")
                (:file "package")
                (:file "utility")
+               (:file "note")
                (:file "color")
                (:file "tables")
                (:file "demos")
