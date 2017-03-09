@@ -129,6 +129,27 @@
     (draw :bitmap (third v))
     (terpri)))
 
+(defun print-font-grid (&key (width 16) (font *bitmap-font*))
+  (let ((bitmap (make-bitmap (+ (* (1+ width) 16) 8) (+ (* (1+ width) 16) 2))))
+    (iter (for x from 0 to (1- width))
+          (set-pixel (+ 8 (* x 17)) 0 bitmap (format nil "0x~X" x)))
+    (iter (for (k v) in-hashtable font)
+          (for index from 0)
+          (multiple-value-bind (y x) (floor index width)
+            (cond
+              ((>= y width)
+               (draw :bitmap bitmap)
+               (clear-bitmap bitmap)
+               (setf index 0 x 0 y 0)))
+            (when (= x 0)
+              (set-pixel 0 (+ (* y 17) 2) bitmap (format nil "0x~X" (char-code k))))
+            (copy-bitmap-onto-bitmap (third v) bitmap (+ (* x 17) 8) (+ (* y 17) 2))))
+    (draw :bitmap bitmap)))
+
+(defun save-font-grid ()
+  (with-output-to-file (*standard-output* (art-file "generated/font.txt"))
+    (print-font-grid)))
+
 (defun bitmap-text (text &key (font *bitmap-font*))
   (multiple-value-bind (chars width)
       (iter (for char in-vector text)

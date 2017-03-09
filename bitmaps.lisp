@@ -3,6 +3,12 @@
 (defun make-bitmap (width height)
   (make-array (list height width) :initial-element nil))
 
+(defun clear-bitmap (bitmap)
+  (destructuring-bind (height width) (array-dimensions bitmap)
+    (iter (for x from 0 to (1- width))
+      (iter (for y from 0 to (1- height))
+        (setf (aref bitmap y x) nil)))))
+
 (defvar *bitmap*)
 
 (defmacro with-bitmap ((width height) &body body)
@@ -25,6 +31,9 @@
          (let ((top (aref bitmap y x))
                (bottom (when (< y (1- height)) (aref bitmap (1+ y) x))))
            (cond
+             ((or (stringp top) (stringp bottom))
+              (incf x (1- (length (or top bottom))))
+              (or top bottom))
              ((and top bottom) #\FULL_BLOCK)
              (top              #\UPPER_HALF_BLOCK)
              (bottom           #\LOWER_HALF_BLOCK )

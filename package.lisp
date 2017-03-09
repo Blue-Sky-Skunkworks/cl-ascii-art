@@ -5,7 +5,8 @@
   (:import-from cl-ansi-text with-color black red green yellow blue magenta cyan white)
   (:import-from uiop directory-files subdirectories)
   (:import-from split-sequence split-sequence)
-  (:import-from alexandria if-let when-let ensure-list with-input-from-file shuffle assoc-value random-elt)
+  (:import-from alexandria if-let when-let ensure-list with-input-from-file shuffle
+                with-output-to-file assoc-value random-elt)
   (:export with-macrolets with-flets as-string
            text indent-text word-wrap fractal hilbert-space-filling-curve unfill-paragraph text-3d
            heading print-with-ellipses remove-trailing-newline
