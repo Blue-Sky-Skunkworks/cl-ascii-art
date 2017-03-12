@@ -30,7 +30,7 @@
           (format stream (format nil (concatenate 'string control-string (when (cdr els) gap))
                                  (+ width (control-length (etypecase column
                                                             (string column)
-                                                            (number (princ-to-string column))))))
+                                                            (t (princ-to-string column))))))
                   column)))
       (terpri stream))))
 
