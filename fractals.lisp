@@ -16,6 +16,7 @@
 ;;; http://codegolf.stackexchange.com/questions/54453/generate-fractals-from-bit-patterns-in-ascii
 
 (defun fractal (n-or-pattern r g &key (stream *standard-output*) (char #\#) &aux (s (expt r g)))
+  "Draw a fractal."
   (assert (or (not (stringp n-or-pattern)) (= r 3)))
   (let ((n (typecase n-or-pattern
              (string (fractal-3-pattern n-or-pattern))
