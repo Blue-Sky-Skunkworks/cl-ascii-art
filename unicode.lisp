@@ -27,16 +27,22 @@
 (defun show-unicode-characters (&optional which)
   "Show many sets of unicode arrows, dingbats, boxes, i-ching, etc."
   (if which
-    (loop for set in (if (eq which :all) (mapcar #'car *sample-unicode-sets*) (ensure-list which))
-          do (destructuring-bind (name start end) (or (assoc set *sample-unicode-sets*)
+      (loop for set in (if (or (equal which 1)
+                               (and (not (numberp which)) (string-equal which :all)))
+                           (mapcar #'car *sample-unicode-sets*) (ensure-list which))
+            do (destructuring-bind (name start end) (or
+                                                     (if (numberp set)
+                                                         (nth (1- set) *sample-unicode-sets*)
+                                                         (assoc set *sample-unicode-sets* :test 'string-equal))
                                                       (error "unicode set ~A not found" set))
                (format t "~%~A~%~%" name)
                (loop for x from start to end
                      do (format t "~X : ~C   ~S~%" x (code-char x) (code-char x)))))
     (progn
-      (format t "Please select a unicode set to view from the following.~%~%  :all~%")
+      (format t "Please select a unicode set to view from the following.~%~%1  :all~%")
       (loop for (name) in *sample-unicode-sets*
-            do (format t "  ~(~S~)~%" name)))))
+            for index from 2
+            do (format t "~2A ~(~S~)~%" index name)))))
 
 (defun unicode-apropos (search &key shuffle)
   (let* ((regex (create-scanner search))
