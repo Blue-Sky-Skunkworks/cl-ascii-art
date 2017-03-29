@@ -32,7 +32,7 @@
                            (mapcar #'car *sample-unicode-sets*) (ensure-list which))
             do (destructuring-bind (name start end) (or
                                                      (if (numberp set)
-                                                         (nth (1- set) *sample-unicode-sets*)
+                                                         (nth (- set 2) *sample-unicode-sets*)
                                                          (assoc set *sample-unicode-sets* :test 'string-equal))
                                                       (error "unicode set ~A not found" set))
                (format t "~%~A~%~%" name)
