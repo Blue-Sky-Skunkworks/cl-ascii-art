@@ -46,7 +46,7 @@
 
 (defun unicode-apropos (search &key shuffle)
   (let* ((regex (create-scanner search))
-         (list (iter (for index from 1 to #x1F6F3)
+         (list (iter (for index from 1 to #x1FFFF)
                  (let ((name (format nil "~S" (code-char index))))
                    (when (scan regex name)
                      (collect (code-char index)))))))
