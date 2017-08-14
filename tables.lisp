@@ -21,16 +21,20 @@
          (max-row-length (apply #'max (mapcar #'length rows)))
          (base-widths (mapcar (lambda (row) (maximize-length row :key 'princ-to-string :length 'length-mono))
                               (rotate-rows-to-columns rows)))
-         (control-string (concatenate 'string "~~~D" (ecase align (:right "@") (:left "")) "A")))
+         (control-string (concatenate 'string "~~~D" (ecase align (:right "@") (:left "")) "A"))
+         (control-string-last (concatenate 'string "~" (ecase align (:right "@") (:left "")) "A")))
     (iter
       (for row in (mapcar (lambda (row) (pad-list row max-row-length "")) rows))
       (iter (for els on row)
         (for width in base-widths)
         (let ((column (car els)))
-          (format stream (format nil (concatenate 'string control-string (when (cdr els) gap))
-                                 (+ width (control-length (etypecase column
-                                                            (string column)
-                                                            (t (princ-to-string column))))))
+          (format stream
+                  (if (cdr els)
+                      (format nil (concatenate 'string control-string gap)
+                              (+ width (control-length (etypecase column
+                                                         (string column)
+                                                         (t (princ-to-string column))))))
+                      control-string-last)
                   column)))
       (terpri stream))))
 
