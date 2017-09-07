@@ -17,9 +17,19 @@
       (return list))))
 
 (defun print-table (rows &key (stream *standard-output*) (gap "  ") (align :left) hilight
-                           headings)
+                           headings total)
   (when rows
-    (let* ((rows (append (and headings (list headings)) (iter (for row in rows) (collect (ensure-list row)))))
+    (let* ((total (and total
+                       (let ((sum (make-list (length (first rows)) :initial-element 0)))
+                         (iter (for row in rows)
+                           (iter (for col in row)
+                             (for i from 0)
+                             (when (member i total :test 'eql)
+                               (incf (nth i sum) col))))
+                         (substitute "" 0 sum))))
+           (rows (append (and headings (list headings))
+                         (iter (for row in rows) (collect (ensure-list row)))
+                         (and total (list total))))
            (max-row-length (apply #'max (mapcar #'length rows)))
            (base-widths (mapcar (lambda (row) (maximize-length row :key 'princ-to-string :length 'length-mono))
                                 (rotate-rows-to-columns rows)))
@@ -40,10 +50,12 @@
                                                                   (t (princ-to-string column))))))
                                control-string-last)
                            column)))
-            (if (or (and headings (= rowi 1))
-                    (and hilight (funcall hilight rowi)))
-                (write-string (white row :effect :bright) stream)
-                (write-string row stream))))
+            (cond
+              ((and headings (= rowi 1))
+               (write-string (white (white row :effect :underline) :effect :bright) stream))
+              ((and hilight (funcall hilight rowi))
+               (write-string (white row :effect :bright) stream))
+              (t (write-string row stream)))))
         (terpri stream)))))
 
 (defun print-selection-table (listvar selectvar &key (reader 'identity) (columns 5) (selection-color :cyan))
