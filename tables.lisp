@@ -16,6 +16,11 @@
       (setf (cdr el) (make-list (- length x) :initial-element pad-element))
       (return list))))
 
+(defmethod table-element-string (obj) (princ-to-string obj))
+
+(defparameter *table-float-precision* 4)
+(defmethod table-element-string ((obj float)) (format nil (format nil "~~,~AF" *table-float-precision*) obj))
+
 (defun print-table (rows &key (stream *standard-output*) (gap "  ") (align :left) hilight
                            headings total)
   (when rows
@@ -31,7 +36,7 @@
                          (iter (for row in rows) (collect (ensure-list row)))
                          (and total (list total))))
            (max-row-length (apply #'max (mapcar #'length rows)))
-           (base-widths (mapcar (lambda (row) (maximize-length row :key 'princ-to-string :length 'length-mono))
+           (base-widths (mapcar (lambda (row) (maximize-length row :key 'table-element-string :length 'length-mono))
                                 (rotate-rows-to-columns rows)))
            (control-string (concatenate 'string "~~~D" (ecase align (:right "@") (:left "")) "A"))
            (control-string-last (concatenate 'string "~" (ecase align (:right "@") (:left "")) "A")))
@@ -41,15 +46,14 @@
         (iter (for els on row)
           (for width in base-widths)
           (let* ((column (car els))
+                 (column-string (table-element-string column))
                  (row
                    (format nil
                            (if (cdr els)
                                (format nil (concatenate 'string control-string gap)
-                                       (+ width (control-length (etypecase column
-                                                                  (string column)
-                                                                  (t (princ-to-string column))))))
+                                       (+ width (control-length column-string)))
                                control-string-last)
-                           column)))
+                           column-string)))
             (cond
               ((and headings (= rowi 1))
                (write-string (white (white row :effect :underline) :effect :bright) stream))

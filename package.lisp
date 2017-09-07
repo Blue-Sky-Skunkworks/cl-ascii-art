@@ -11,7 +11,8 @@
            text indent-text word-wrap fractal hilbert-space-filling-curve unfill-paragraph text-3d
            heading print-with-ellipses remove-trailing-newline
            black red green yellow blue magenta cyan white with-color if-color
-           fonts select-font boxed cowsay print-table
+           fonts select-font boxed cowsay
+           print-table table-element-string *table-float-precision*
            clock-face show-unicode-characters unicode-apropos print-in-braille
            text-with-unicode-boxes
            demo-fonts demo-boxes demo-cows
