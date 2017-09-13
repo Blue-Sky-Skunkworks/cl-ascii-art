@@ -42,7 +42,7 @@
   (blue (format nil (format nil "~~,~AF" *table-float-precision*) obj) :effect :bright))
 
 (defun print-table (rows &key (stream *standard-output*) (gap "  ") (align :left) hilight
-                           headings total)
+                           headings total page-size)
   (when rows
     (let* ((total (and total
                        (let ((sum (make-list (length (first rows)) :initial-element 0)))
@@ -55,6 +55,7 @@
            (rows (append (and headings (list headings))
                          (iter (for row in rows) (collect (ensure-list row)))
                          (and total (list total))))
+           (num-rows (length rows))
            (max-row-length (apply #'max (mapcar #'length rows)))
            (base-widths (mapcar (lambda (row) (maximize-length row :key 'table-element-string :length 'length-mono))
                                 (rotate-rows-to-columns rows)))
@@ -80,6 +81,10 @@
               ((and hilight (funcall hilight rowi))
                (write-string (white row :effect :bright) stream))
               (t (write-string row stream)))))
+        (when (and page-size (zerop (mod rowi page-size)))
+          (format t "~&<~A more>" (- num-rows rowi))
+          (force-output)
+          (when (char= (read-char) #\q) (return-from print-table)))
         (terpri stream)))))
 
 (defun print-selection-table (listvar selectvar &key (reader 'identity) (columns 5) (selection-color :cyan))
