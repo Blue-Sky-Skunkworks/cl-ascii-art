@@ -13,6 +13,7 @@
            black red green yellow blue magenta cyan white with-color if-color
            fonts select-font boxed cowsay
            print-table table-element-string *table-float-precision*
+           *table-element-max-length*
            clock-face show-unicode-characters unicode-apropos print-in-braille
            text-with-unicode-boxes
            demo-fonts demo-boxes demo-cows

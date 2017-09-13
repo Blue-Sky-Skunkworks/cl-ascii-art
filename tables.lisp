@@ -16,10 +16,30 @@
       (setf (cdr el) (make-list (- length x) :initial-element pad-element))
       (return list))))
 
-(defmethod table-element-string (obj) (princ-to-string obj))
-
 (defparameter *table-float-precision* 4)
-(defmethod table-element-string ((obj float)) (format nil (format nil "~~,~AF" *table-float-precision*) obj))
+
+(defparameter *table-element-max-length* nil)
+
+(defmethod table-element-string (obj)
+  (princ-to-string obj))
+
+(defmethod table-element-string ((obj string))
+  (white
+   (if *table-element-max-length*
+       (as-string (print-with-ellipses obj :max *table-element-max-length*))
+       obj)))
+
+(defmethod table-element-string ((obj symbol))
+  (cyan (princ-to-string obj)))
+
+(defmethod table-element-string ((obj pathname))
+  (red (princ-to-string obj)))
+
+(defmethod table-element-string ((obj number))
+  (blue (format nil "~:D" obj) :effect :bright))
+
+(defmethod table-element-string ((obj float))
+  (blue (format nil (format nil "~~,~AF" *table-float-precision*) obj) :effect :bright))
 
 (defun print-table (rows &key (stream *standard-output*) (gap "  ") (align :left) hilight
                            headings total)
